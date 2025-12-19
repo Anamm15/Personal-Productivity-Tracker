@@ -34,7 +34,7 @@ export default function TimelineSection() {
 
       {/* Container Glassmorphism untuk Timeline */}
       <div className="bg-white/70 backdrop-blur-xl rounded-[2.5rem] p-6 md:p-8 shadow-sm border border-white/60 relative overflow-hidden">
-        {/* Dekorasi garis subtle */}
+        {/* Decoration */}
         <div className="absolute left-18 top-0 bottom-0 w-0.5 bg-linear-to-b from-teal-100/20 via-stone-200/60 to-teal-100/20 hidden md:block"></div>
 
         <div className="space-y-8 relative z-10">
@@ -47,7 +47,7 @@ export default function TimelineSection() {
                 key={item.id}
                 className="relative flex items-start gap-6 md:gap-8 group"
               >
-                {/* Jam */}
+                {/* Hour */}
                 <div className="w-14 text-right pt-2 shrink-0 relative">
                   <span className="text-base font-bold text-stone-700 block">
                     {item.startTime}
@@ -106,7 +106,7 @@ export default function TimelineSection() {
           })}
         </div>
 
-        {/* Hiasan di bawah timeline */}
+        {/* Decoration */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white/60 to-transparent pointer-events-none"></div>
       </div>
     </section>

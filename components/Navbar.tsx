@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, Bell, Menu, X, Home, Clock, Target } from "lucide-react";
+import { Bell, Menu, X, Home, Clock, Target, BookUser } from "lucide-react";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,13 +22,12 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-white/50 px-6 py-4 supports-backdrop-filter:bg-white/60">
       <div className="max-w-5xl mx-auto flex justify-between items-center">
-        {/* --- LOGO & GREETING --- */}
+        {/* --- Greeting --- */}
         <div className="flex items-center gap-3">
           <div className="p-2 bg-linear-to-tr from-teal-500 to-violet-500 rounded-xl shadow-lg shadow-teal-500/20">
-            <CalendarDays className="w-6 h-6 text-white" />
+            <BookUser className="w-6 h-6 text-white" />
           </div>
           <div>
-            {/* Tanggal bisa dibuat dinamis nanti dengan new Date() */}
             <p className="text-xs md:text-sm text-stone-500 font-medium">
               Kamis, 18 Des
             </p>
@@ -41,7 +40,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* --- DESKTOP NAVIGATION (Hidden on Mobile) --- */}
+        {/* --- Dekstop Navigation (Hidden on Mobile) --- */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
@@ -79,7 +78,7 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* --- RIGHT ACTIONS (Bell & Mobile Menu Toggle) --- */}
+        {/* --- Right Actions (Bell & Mobile Menu Toggle) --- */}
         <div className="flex items-center gap-3">
           {/* Notification */}
           <button className="p-2.5 rounded-xl bg-white/50 hover:bg-white border border-stone-100 hover:border-teal-200 shadow-sm transition-all relative group">
@@ -101,7 +100,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* --- MOBILE MENU DROPDOWN (Responsive) --- */}
+      {/* --- Mobile Menu Dropdown (Responsive) --- */}
       <div
         className={`
         md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-stone-100 shadow-xl overflow-hidden transition-all duration-300 ease-in-out
