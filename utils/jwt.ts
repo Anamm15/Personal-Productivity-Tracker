@@ -1,6 +1,8 @@
-import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
+import jwt, { SignOptions } from "jsonwebtoken";
+import * as jose from "jose";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
+const encodedSecret = new TextEncoder().encode(JWT_SECRET);
 
 if (!JWT_SECRET) {
   throw new Error("JWT_SECRET is not defined in environment variables");
@@ -21,16 +23,22 @@ export function generateToken(
   });
 }
 
-export function verifyToken(token: string): JwtUserPayload {
+export async function verifyToken(token: string): Promise<JwtUserPayload> {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    const { payload } = await jose.jwtVerify(token, encodedSecret);
+
+    // Pastikan data yang kita butuhkan ada
+    if (!payload.userId || !payload.email) {
+      throw new Error("Payload missing essential data");
+    }
 
     return {
-      userId: decoded.userId,
-      email: decoded.email,
+      userId: payload.userId as string,
+      email: payload.email as string,
     };
   } catch (error) {
-    throw new Error(`Invalid or expired token: ${error}`);
+    console.error("JWT Verification Error:", error);
+    throw new Error("Invalid or expired token");
   }
 }
 

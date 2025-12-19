@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { users } from "@/database/schema/user";
 import { comparePassword } from "@/utils/bcrypt";
 import { generateToken } from "@/utils/jwt";
-import { AppError } from "@/lib/exceptions"; // Import custom error
+import { AppError } from "@/lib/exceptions";
 
 export async function Login(email: string, password: string): Promise<string> {
   const userQuery = await db

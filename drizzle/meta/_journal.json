@@ -8,6 +8,13 @@
       "when": 1766151812971,
       "tag": "0000_sticky_giant_man",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1766155307052,
+      "tag": "0001_late_spencer_smythe",
+      "breakpoints": true
     }
   ]
 }

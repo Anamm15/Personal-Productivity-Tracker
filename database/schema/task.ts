@@ -5,9 +5,9 @@ import {
   timestamp,
   date,
   varchar,
+  time,
 } from "drizzle-orm/pg-core";
 import { users } from "./user";
-import { projects } from "./project";
 import { taskStatusEnum } from "./enums";
 
 export const tasks = pgTable("tasks", {
@@ -17,19 +17,17 @@ export const tasks = pgTable("tasks", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
 
-  projectId: uuid("project_id").references(() => projects.id),
-
   title: text("title").notNull(),
   description: text("description"),
 
-  startTime: timestamp("start_time"),
-  endTime: timestamp("end_time"),
+  startTime: time("start_time"),
+  endTime: time("end_time"),
   date: date("date"),
 
-  tags: text("tags").array(), // String[]
+  tags: text("tags").array(),
   color: varchar("color", { length: 50 }),
 
-  reminder: timestamp("reminder"),
+  reminder: time("reminder"),
 
   status: taskStatusEnum("status").default("PENDING").notNull(),
 
