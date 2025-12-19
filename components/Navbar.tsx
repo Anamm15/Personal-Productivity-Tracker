@@ -23,22 +23,24 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-white/50 px-6 py-4 supports-backdrop-filter:bg-white/60">
       <div className="max-w-5xl mx-auto flex justify-between items-center">
         {/* --- Greeting --- */}
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-linear-to-tr from-teal-500 to-violet-500 rounded-xl shadow-lg shadow-teal-500/20">
-            <BookUser className="w-6 h-6 text-white" />
+        <Link href={"/"}>
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-linear-to-tr from-teal-500 to-violet-500 rounded-xl shadow-lg shadow-teal-500/20">
+              <BookUser className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <p className="text-xs md:text-sm text-stone-500 font-medium">
+                Kamis, 18 Des
+              </p>
+              <h1 className="text-lg md:text-2xl font-extrabold tracking-tight text-stone-800 leading-tight">
+                Hi,{" "}
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-600 to-violet-600">
+                  Dev!
+                </span>
+              </h1>
+            </div>
           </div>
-          <div>
-            <p className="text-xs md:text-sm text-stone-500 font-medium">
-              Kamis, 18 Des
-            </p>
-            <h1 className="text-lg md:text-2xl font-extrabold tracking-tight text-stone-800 leading-tight">
-              Hi,{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-600 to-violet-600">
-                Dev!
-              </span>
-            </h1>
-          </div>
-        </div>
+        </Link>
 
         {/* --- Dekstop Navigation (Hidden on Mobile) --- */}
         <div className="hidden md:flex items-center gap-8">
