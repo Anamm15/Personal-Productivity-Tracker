@@ -7,3 +7,20 @@ export type Task = {
   color: string;
   description?: string;
 };
+
+export type Milestone = {
+  id: number;
+  title: string;
+  isCompleted: boolean;
+};
+
+export type Goal = {
+  id: number;
+  title: string;
+  category: string;
+  deadline: string;
+  motivation: string;
+  reward: string;
+  milestones: Milestone[];
+  theme: "indigo" | "emerald" | "rose" | "amber";
+};

@@ -18,7 +18,7 @@ export function Modal({ title, setIsModalOpen, children }: ModalProps) {
         {children}
         <button
           onClick={() => setIsModalOpen(false)}
-          className="w-full bg-stone-900 text-white py-2.5 rounded-xl mt-4"
+          className="w-full bg-stone-900 text-white py-2.5 rounded-xl mt-4 cursor-pointer"
         >
           Tutup
         </button>
