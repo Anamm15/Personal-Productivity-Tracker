@@ -1,3 +1,5 @@
+import { MilestoneResponse } from "./milestone";
+
 export type GoalResponse = {
   id: string;
   userId: string;
@@ -9,6 +11,7 @@ export type GoalResponse = {
   motivation?: string;
   reward?: string;
   theme?: string;
+  milestones?: MilestoneResponse[];
   createdAt: Date;
   updatedAt?: Date;
 };

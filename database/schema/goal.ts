@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, timestamp, date } from "drizzle-orm/pg-core";
 import { users } from "./user";
 import { relations } from "drizzle-orm";
 import { milestones } from "./milestone";
@@ -14,8 +14,8 @@ export const goals = pgTable("goals", {
   description: text("description"),
   category: text("category").notNull(),
 
-  start: timestamp("start").notNull(),
-  deadline: timestamp("deadline").notNull(),
+  start: date("start").notNull(),
+  deadline: date("deadline").notNull(),
   motivation: text("motivation"),
   reward: text("reward"),
   theme: text("theme"),

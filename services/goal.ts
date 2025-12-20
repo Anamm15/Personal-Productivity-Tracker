@@ -9,7 +9,7 @@ export const createGoal = async (goal: CreateGoalRequest) => {
 
 export const getGoals = async () => {
   const response = await api.get("/goals");
-  return response.data;
+  return response.data.data;
 };
 
 export const deleteGoal = async (id: string) => {
@@ -22,11 +22,8 @@ export const updateGoal = async (id: string, goal: UpdateGoalRequest) => {
   return response.data;
 };
 
-export const addMilestone = async (
-  id: string,
-  milestone: CreateMilestoneRequest
-) => {
-  const response = await api.post(`/goals/${id}/milestones`, milestone);
+export const addMilestone = async (id: string, title: string) => {
+  const response = await api.post(`/goals/${id}/milestones`, { title });
   return response.data;
 };
 

@@ -17,7 +17,7 @@ export const useRegister = () => {
       const response = await registerService(payload);
       toast.success(`Welcome, ${response.data.user?.name || "User"}!`, {
         id: toastId,
-        duration: 2000,
+        duration: 4000,
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -28,7 +28,7 @@ export const useRegister = () => {
       setError(message);
       toast.error(message, {
         id: toastId,
-        duration: 4000,
+        duration: 5000,
       });
     } finally {
       setIsLoading(false);

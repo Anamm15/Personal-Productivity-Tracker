@@ -20,7 +20,7 @@ export const useLogin = () => {
       if (response.data.token) {
         toast.success(`Welcome, ${response.data.user?.name || "User"}!`, {
           id: toastId,
-          duration: 2000,
+          duration: 4000,
         });
         localStorage.setItem("token", response.data.token);
       }
@@ -34,7 +34,7 @@ export const useLogin = () => {
       setError(message);
       toast.error(message, {
         id: toastId,
-        duration: 4000,
+        duration: 5000,
       });
       console.error("Login Gagal:", err);
     } finally {

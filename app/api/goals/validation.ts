@@ -8,13 +8,9 @@ export const createGoalSchema = z
 
     category: z.string().min(1, "Category is required"),
 
-    start: z
-      .string()
-      .datetime({ message: "Start must be a valid ISO timestamp" }),
+    start: z.string().date({ message: "Start must valid format" }),
 
-    deadline: z
-      .string()
-      .datetime({ message: "Deadline must be a valid ISO timestamp" }),
+    deadline: z.string().date({ message: "Deadline must valid format" }),
 
     motivation: z.string().optional(),
     reward: z.string().optional(),

@@ -44,7 +44,7 @@ export async function Update(
   }
 
   if (goal.deadline !== undefined && goal.deadline !== "") {
-    existingGoal[0].deadline = new Date(goal.deadline as string);
+    existingGoal[0].deadline = new Date(goal.deadline as string).toISOString();
   }
 
   const updatedGoal = await db

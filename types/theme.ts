@@ -1,4 +1,16 @@
-export const getThemeColors = (theme: string) => {
+export const getThemeColors = (theme?: string) => {
+  if (!theme) {
+    // cari default baru
+    return {
+      bg: "bg-violet-50",
+      text: "text-violet-900",
+      border: "border-violet-100",
+      accent: "text-violet-600",
+      ring: "stroke-violet-600",
+      fill: "fill-violet-100",
+    };
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const themes: any = {
     indigo: {

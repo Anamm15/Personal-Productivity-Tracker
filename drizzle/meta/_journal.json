@@ -29,6 +29,13 @@
       "when": 1766233741120,
       "tag": "0003_white_mach_iv",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1766246835955,
+      "tag": "0004_solid_talisman",
+      "breakpoints": true
     }
   ]
 }

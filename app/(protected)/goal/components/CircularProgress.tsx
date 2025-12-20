@@ -5,7 +5,7 @@ export default function CircularProgress({
   theme,
 }: {
   progress: number;
-  theme: string;
+  theme?: string;
 }) {
   const radius = 24;
   const circumference = 2 * Math.PI * radius;

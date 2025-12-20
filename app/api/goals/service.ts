@@ -25,8 +25,8 @@ export async function CreateGoal(userId: string, goal: CreateGoalRequest) {
     .values({
       ...goal,
       userId,
-      start: new Date(goal.start),
-      deadline: new Date(goal.deadline),
+      start: new Date(goal.start).toISOString(),
+      deadline: new Date(goal.deadline).toISOString(),
     })
     .returning();
 

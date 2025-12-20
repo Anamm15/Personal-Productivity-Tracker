@@ -23,7 +23,7 @@ export const useCreateTask = () => {
     onSuccess: (data, variables, context) => {
       toast.success("Task Created successfully", {
         id: context?.toastId,
-        duration: 2000,
+        duration: 4000,
       });
     },
 
