@@ -1,20 +1,26 @@
 import { END_HOUR, HOUR_HEIGHT, START_HOUR } from "@/constants/date";
-import { Task } from "@/types";
 import { timeStringToMinutes } from "@/utils/datetime";
 import React, { useEffect, useState } from "react";
+import { useTasks } from "../../dashboard/hooks/useTasks";
+import { TaskResponse } from "@/types/dto/task";
+import { AlertCircle, Loader2 } from "lucide-react";
 
 type MainTimelineContentProps = {
-  tasks: Task[];
-  setSelectedTask: React.Dispatch<React.SetStateAction<Task | null>>;
+  setSelectedTask: React.Dispatch<React.SetStateAction<TaskResponse | null>>;
   setIsTaskModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function MainTimelineContent({
-  tasks,
   setSelectedTask,
   setIsTaskModalOpen,
 }: MainTimelineContentProps) {
   const [now, setNow] = useState<Date | null>(null);
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+    error,
+  } = useTasks(new Date().toISOString().split("T")[0]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -49,6 +55,22 @@ export default function MainTimelineContent({
     return (offset / 60) * HOUR_HEIGHT;
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-rose-500 flex gap-2 justify-center mt-10">
+        <AlertCircle /> Gagal memuat data: {error.message}
+      </div>
+    );
+  }
+
   return (
     <main className="max-w-4xl mx-auto px-2 py-6 pb-24 relative">
       <div className="relative bg-white/60 backdrop-blur-lg rounded-[2.5rem] border border-white/60 shadow-sm overflow-hidden min-h-[80vh]">
@@ -78,7 +100,7 @@ export default function MainTimelineContent({
         })}
 
         {/* Tasks Rendering */}
-        {tasks.map((task) => {
+        {tasks?.map((task) => {
           const top = calculateTop(task.startTime);
           const height = calculateHeight(task.startTime, task.endTime);
           return (

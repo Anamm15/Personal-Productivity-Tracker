@@ -3,9 +3,9 @@ export type TaskResponse = {
   userId: string;
   title: string;
   description: string | null;
-  startTime: string | null;
-  endTime: string | null;
-  date: string | null;
+  startTime: string;
+  endTime: string;
+  date: string;
   tags: string[] | null;
   color: string | null;
   reminder: string | null;
@@ -15,7 +15,6 @@ export type TaskResponse = {
 };
 
 export type TaskCreateRequest = {
-  userId: string;
   title: string;
   description: string;
   startTime: string;

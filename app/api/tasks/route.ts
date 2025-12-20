@@ -46,10 +46,7 @@ export async function POST(req: NextRequest) {
     }
 
     const validData = validation.data;
-    const newTask = await CreateTask({
-      ...validData,
-      userId: userId,
-    });
+    const newTask = await CreateTask(userId, validData);
 
     return buildSuccessResponse(newTask, "Task created successfully", 201);
   } catch (error) {

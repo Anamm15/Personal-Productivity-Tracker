@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 
-import { Clock } from "lucide-react";
+import { AlertCircle, Clock, Loader2 } from "lucide-react";
 import { agendaItems } from "./MockData";
 import { timeStringToMinutes, timeToDate } from "@/utils/datetime";
+import { useTasks } from "../hooks/useTasks";
 
 export default function TimelineSection() {
   const [now, setNow] = useState<Date | null>(null);
+  const {
+    data: tasks,
+    isLoading,
+    isError,
+    error,
+  } = useTasks(new Date().toISOString().split("T")[0]);
 
   function getAgendaStatus(start: string, end: string, now: Date) {
     const startDate = timeToDate(start);
@@ -26,6 +33,22 @@ export default function TimelineSection() {
     return () => clearInterval(interval);
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-rose-500 flex gap-2 justify-center mt-10">
+        <AlertCircle /> Gagal memuat data: {error.message}
+      </div>
+    );
+  }
+
   return (
     <section>
       <div className="flex items-center justify-between mb-5 px-1">
@@ -38,7 +61,7 @@ export default function TimelineSection() {
         <div className="absolute left-18 top-0 bottom-0 w-0.5 bg-linear-to-b from-teal-100/20 via-stone-200/60 to-teal-100/20 hidden md:block"></div>
 
         <div className="space-y-8 relative z-10">
-          {agendaItems.map((item, index) => {
+          {tasks?.map((item, index) => {
             const status =
               now && getAgendaStatus(item.startTime, item.endTime, now);
 
@@ -94,11 +117,16 @@ export default function TimelineSection() {
                         </span>
                       </div>
                     </div>
-                    <span
-                      className={`px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm self-start md:self-auto ${item.color}`}
-                    >
-                      {item.tag}
-                    </span>
+                    {item.tags &&
+                      item.tags.length > 0 &&
+                      item.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm self-start md:self-auto ${tag}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
                   </div>
                 </div>
               </div>

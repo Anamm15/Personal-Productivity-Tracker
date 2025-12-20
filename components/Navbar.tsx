@@ -10,7 +10,11 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "Home", href: "/", icon: <Home className="w-4 h-4" /> },
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: <Home className="w-4 h-4" />,
+    },
     {
       name: "Timeline",
       href: "/timeline",

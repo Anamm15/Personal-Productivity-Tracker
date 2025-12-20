@@ -1,18 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
-import { Task } from "@/types";
-import { tasks } from "./components/MockData";
 import { Modal } from "@/components/Modal";
 import Calender from "@/components/Calender";
 import MainTimelineContent from "./components/MainContent";
 import Header from "./components/Header";
+import TaskModal from "./components/TaskModal";
+import { TaskResponse } from "@/types/dto/task";
 
 export default function DailyTimelineWithDate() {
   const [currentDate, setCurrentDate] = useState(new Date()); // State Tanggal Utama
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); // State Modal Kalender
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [isDetailTaskModalOpen, setIsDetailTaskModalOpen] = useState(false);
+  const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<TaskResponse | null>(null);
 
   return (
     <div className="min-h-screen bg-[#FDFCF8] text-stone-800 font-sans relative overflow-x-hidden selection:bg-teal-200">
@@ -25,14 +26,13 @@ export default function DailyTimelineWithDate() {
         currentDate={currentDate}
         setCurrentDate={setCurrentDate}
         setIsCalendarOpen={setIsCalendarOpen}
-        setIsTaskModalOpen={setIsTaskModalOpen}
+        setIsTaskModalOpen={setIsCreateTaskModalOpen}
       />
 
       {/* --- Timeline Content --- */}
       <MainTimelineContent
-        tasks={tasks}
         setSelectedTask={setSelectedTask}
-        setIsTaskModalOpen={setIsTaskModalOpen}
+        setIsTaskModalOpen={setIsDetailTaskModalOpen}
       />
 
       {/* --- Custom Calender Modal --- */}
@@ -44,12 +44,21 @@ export default function DailyTimelineWithDate() {
         />
       )}
 
-      {isTaskModalOpen && (
-        <Modal title="Detail Tugas" setIsModalOpen={setIsTaskModalOpen}>
+      {isDetailTaskModalOpen && (
+        <Modal title="Detail Tugas" setIsModalOpen={setIsDetailTaskModalOpen}>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
             esse recusandae quidem voluptatibus magni dicta!
           </p>
+        </Modal>
+      )}
+
+      {isCreateTaskModalOpen && (
+        <Modal
+          title="Buat Tugas Baru"
+          setIsModalOpen={setIsCreateTaskModalOpen}
+        >
+          <TaskModal setIsModalOpen={setIsCreateTaskModalOpen} />
         </Modal>
       )}
     </div>

@@ -21,9 +21,13 @@ export async function GetTasks(
 }
 
 export async function CreateTask(
+  userId: string,
   task: TaskCreateRequest
 ): Promise<TaskResponse> {
-  const insertedTask = await db.insert(tasks).values(task).returning();
+  const insertedTask = await db
+    .insert(tasks)
+    .values({ ...task, userId })
+    .returning();
 
   if (!insertedTask || insertedTask.length === 0) {
     throw new AppError("Failed to create task", 500);

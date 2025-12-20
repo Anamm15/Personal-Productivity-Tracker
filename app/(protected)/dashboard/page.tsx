@@ -5,9 +5,18 @@ import { Plus } from "lucide-react";
 import MainFocusSection from "./components/MainFocus";
 import TimelineSection from "./components/Timeline";
 import { Modal } from "@/components/Modal";
+import { useQuickAddTask } from "./hooks/useTasks";
 
 export default function DashboardEnhanced() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [command, setCommand] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { createQuickTaskHandler, isLoading } = useQuickAddTask();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await createQuickTaskHandler(command);
+  };
 
   return (
     <div className="min-h-screen bg-background selection:bg-teal-200 selection:text-teal-900 relative overflow-hidden font-sans">
@@ -38,10 +47,17 @@ export default function DashboardEnhanced() {
         <Modal setIsModalOpen={setIsModalOpen} title="Quick Add Task">
           <input
             type="text"
-            placeholder="Contoh: Meeting jam 10"
+            placeholder="Contoh: Meeting jam 10 @08:30-10:00"
             className="w-full p-4 bg-stone-50/50 border border-stone-200 rounded-2xl outline-none focus:border-teal-500 transition-colors"
-            autoFocus
+            value={command}
+            onChange={(e) => setCommand(e.target.value)}
           />
+          <button
+            onClick={handleSubmit}
+            className="w-full bg-stone-900 text-white py-2.5 rounded-xl mt-4 cursor-pointer"
+          >
+            Submit
+          </button>
         </Modal>
       )}
     </div>

@@ -21,9 +21,9 @@ export const tasks = pgTable("tasks", {
   title: text("title").notNull(),
   description: text("description"),
 
-  startTime: time("start_time"),
-  endTime: time("end_time"),
-  date: date("date"),
+  startTime: time("start_time").notNull(),
+  endTime: time("end_time").notNull(),
+  date: date("date").notNull(),
 
   tags: text("tags").array(),
   color: varchar("color", { length: 50 }),
