@@ -1,4 +1,5 @@
 @baseUrl = http://localhost:3000/api/auth
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDkyOWQ4Zi03YmJiLTQ1NmEtYjNjMy1kY2M2YjkyZTkzOTUiLCJlbWFpbCI6ImlydWxAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjYyMDIwOTEsImV4cCI6MTc2NjgwNjg5MX0.fn4k75PB6TOVDV_R1kJ_SNOntNMcB6jLAr8AthbwHAQ
 
 ###
 POST {{baseUrl}}/login
@@ -18,3 +19,7 @@ Content-Type: application/json
    "email": "irul@example.com",
    "password": "irul123654"
 }
+
+###
+GET {{baseUrl}}/me
+Authorization: Bearer {{token}}
