@@ -39,5 +39,12 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/tasks", "/api/tasks/:id"],
+  matcher: [
+    "/api/tasks",
+    "/api/tasks/:id*",
+    "/api/goals",
+    "/api/goals/:id*",
+    "/api/milestones",
+    "/api/milestones/:id*",
+  ],
 };

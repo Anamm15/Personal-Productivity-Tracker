@@ -1,5 +1,6 @@
 import { pgTable, uuid, text, jsonb, timestamp } from "drizzle-orm/pg-core";
 import { users } from "./user";
+import { relations } from "drizzle-orm";
 
 export const activityLogs = pgTable("activity_logs", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -16,3 +17,7 @@ export const activityLogs = pgTable("activity_logs", {
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const activityLogRelations = relations(activityLogs, ({ one }) => ({
+  user: one(users, { fields: [activityLogs.userId], references: [users.id] }),
+}));

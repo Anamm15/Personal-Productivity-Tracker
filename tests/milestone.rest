@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:3000/api/milestones
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDkyOWQ4Zi03YmJiLTQ1NmEtYjNjMy1kY2M2YjkyZTkzOTUiLCJlbWFpbCI6ImlydWxAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjYxODc4MjYsImV4cCI6MTc2Njc5MjYyNn0.RYglMYsR71EKaumq0TdXBgSrQCvvfV7N55-oqY0tEW8
+
+###
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+   "email": "irul@example.com",
+   "password": "irul123654"
+}
+
+###
+POST

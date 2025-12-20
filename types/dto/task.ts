@@ -29,9 +29,7 @@ export type TaskCreateRequest = {
 export type TaskUpdateRequest = {
   title?: string;
   description?: string;
-  category?: string;
   startTime?: string;
   endTime?: string;
-  color?: string;
-  tags?: string[];
+  status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELED";
 };

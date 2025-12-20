@@ -1,0 +1,40 @@
+@baseUrl = http://localhost:3000/api/goals
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDkyOWQ4Zi03YmJiLTQ1NmEtYjNjMy1kY2M2YjkyZTkzOTUiLCJlbWFpbCI6ImlydWxAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjYxODc4MjYsImV4cCI6MTc2Njc5MjYyNn0.RYglMYsR71EKaumq0TdXBgSrQCvvfV7N55-oqY0tEW8
+
+###
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+   "email": "irul@example.com",
+   "password": "irul123654"
+}
+
+###
+GET {{baseUrl}}
+Authorization: Bearer {{token}}
+
+###
+POST {{baseUrl}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Kuasai Next.js dalam 30 Hari",
+  "category": "Programming",
+  "start": "2025-01-01T08:00:00Z",
+  "deadline": "2025-01-31T23:59:59Z",
+  "description": "Mempelajari App Router, Server Actions, dan Drizzle ORM dari nol.",
+  "motivation": "Ingin menjadi Fullstack Developer profesional dan membangun produk sendiri.",
+  "reward": "Membeli keyboard mekanik baru jika berhasil selesai tepat waktu.",
+  "theme": "emerald"
+}
+
+###
+POST {{baseUrl}}/fc235481-4013-43b2-a1e1-c74de003945e/milestones
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Push ML"
+}

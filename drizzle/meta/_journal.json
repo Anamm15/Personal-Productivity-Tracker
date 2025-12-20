@@ -15,6 +15,13 @@
       "when": 1766155307052,
       "tag": "0001_late_spencer_smythe",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1766187229625,
+      "tag": "0002_flimsy_sinister_six",
+      "breakpoints": true
     }
   ]
 }

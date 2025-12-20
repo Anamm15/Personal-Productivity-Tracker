@@ -1,5 +1,7 @@
 import { pgTable, uuid, text, timestamp } from "drizzle-orm/pg-core";
 import { users } from "./user";
+import { relations } from "drizzle-orm";
+import { milestones } from "./milestone";
 
 export const goals = pgTable("goals", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -12,7 +14,8 @@ export const goals = pgTable("goals", {
   description: text("description"),
   category: text("category").notNull(),
 
-  deadline: timestamp("deadline"),
+  start: timestamp("start").notNull(),
+  deadline: timestamp("deadline").notNull(),
   motivation: text("motivation"),
   reward: text("reward"),
   theme: text("theme"),
@@ -22,3 +25,8 @@ export const goals = pgTable("goals", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
+
+export const goalsRelations = relations(goals, ({ one, many }) => ({
+  user: one(users, { fields: [goals.userId], references: [users.id] }),
+  milestones: many(milestones),
+}));

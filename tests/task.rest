@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3000/api/tasks
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhN2FjMmNlYS03Yjg0LTRlNDMtOWNiNS1hZGEyMmY4MjZhZDUiLCJlbWFpbCI6ImlydWxAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjYxNTk0MDYsImV4cCI6MTc2Njc2NDIwNn0.JfetZg-ROeq48IP70PXAvfAQ0SNYJXAYPMXRCe89Sn0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDkyOWQ4Zi03YmJiLTQ1NmEtYjNjMy1kY2M2YjkyZTkzOTUiLCJlbWFpbCI6ImlydWxAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjYxODcyOTksImV4cCI6MTc2Njc5MjA5OX0.fF8oXJQdUBy0CSdr5pq04BeoF5xh0gR61ajubnDbJ6c
 
 ###
 POST http://localhost:3000/api/auth/login
@@ -23,9 +23,18 @@ Content-Type: application/json
   "title": "Meeting Project Re-vamp",
   "description": "Membahas arsitektur database dan integrasi Drizzle ORM",
   "date": "2023-12-25",
-  "startTime": "2023-12-25T09:00:00.000Z",
-  "endTime": "2023-12-25T10:30:00.000Z",
+  "startTime": "09:00",
+  "endTime": "10:30",
   "color": "#3b82f6",
   "tags": ["work", "important", "tech"],
-  "reminder": "2023-12-25T08:00:00.000Z"
+  "reminder": "08:00"
+}
+
+###
+POST {{baseUrl}}/quick-add
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "command": "Meeting Project MediLink @08:30-10:00"
 }

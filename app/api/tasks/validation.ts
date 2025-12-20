@@ -37,7 +37,7 @@ export const createTaskSchema = z
       .max(5, "Maximum 5 tags allowed")
       .optional(),
 
-    reminder: z.coerce.date().optional(),
+    reminder: z.string().optional(),
   })
   .refine(
     (data) => {

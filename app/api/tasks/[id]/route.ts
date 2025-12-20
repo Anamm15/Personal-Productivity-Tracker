@@ -14,8 +14,8 @@ export async function GET(
       throw new AppError("Unauthorized", 401);
     }
 
-    const task = await GetById(params.id, userId);
-
+    const { id } = await params;
+    const task = await GetById(id, userId);
     return buildSuccessResponse(task, "Task fetched successfully", 200);
   } catch (error) {
     if (error instanceof AppError) {
@@ -37,7 +37,7 @@ export async function PUT(
       throw new AppError("Unauthorized", 401);
     }
 
-    const id = params.id;
+    const { id } = await params;
     const body = await req.json();
     const validation = updateTaskSchema.safeParse(body);
     if (!validation.success) {
@@ -71,7 +71,8 @@ export async function DELETE(
       throw new AppError("Unauthorized", 401);
     }
 
-    const deletedTask = await GetById(params.id, userId);
+    const { id } = await params;
+    const deletedTask = await GetById(id, userId);
     const deleted = await Delete(deletedTask.id);
     return buildSuccessResponse(deleted, "Task deleted successfully", 200);
   } catch (error) {

@@ -1,0 +1,35 @@
+export type GoalResponse = {
+  id: string;
+  userId: string;
+  title: string;
+  description?: string;
+  category: string;
+  start: string;
+  deadline: string;
+  motivation?: string;
+  reward?: string;
+  theme?: string;
+  createdAt: Date;
+  updatedAt?: Date;
+};
+
+export type CreateGoalRequest = {
+  title: string;
+  description?: string;
+  category: string;
+  start: string;
+  deadline: string;
+  motivation?: string;
+  reward?: string;
+  theme?: string;
+};
+
+export type UpdateGoalRequest = {
+  title?: string;
+  description?: string;
+  category?: string;
+  deadline?: string;
+  motivation?: string;
+  reward?: string;
+  theme?: string;
+};

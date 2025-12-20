@@ -9,6 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { users } from "./user";
 import { taskStatusEnum } from "./enums";
+import { relations } from "drizzle-orm";
 
 export const tasks = pgTable("tasks", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -36,3 +37,10 @@ export const tasks = pgTable("tasks", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
+
+export const taskRelations = relations(tasks, ({ one }) => ({
+  user: one(users, {
+    fields: [tasks.userId],
+    references: [users.id],
+  }),
+}));
