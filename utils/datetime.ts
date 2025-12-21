@@ -11,15 +11,23 @@ export function timeStringToMinutes(time: string): number {
 }
 
 export function localISODate(date: Date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const isoDate = `${year}-${month}-${day}`;
+  const formatter = new Intl.DateTimeFormat("id-ID", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-  const isoTime = `${hours}:${minutes}`;
-  return { isoDate, isoTime };
+  const parts = formatter.formatToParts(date);
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? "";
+
+  return {
+    isoDate: `${get("year")}-${get("month")}-${get("day")}`,
+    isoTime: `${get("hour")}:${get("minute")}`,
+  };
 }
 
 export function dateStringToDate(dateString: string) {
