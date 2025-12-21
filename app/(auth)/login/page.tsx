@@ -19,11 +19,11 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#FDFCF8] font-sans relative flex items-center justify-center p-4 overflow-hidden selection:bg-teal-200">
       {/* --- BACKGROUND DECORATION (Aurora) --- */}
       {/* Blob Violet di kiri atas */}
-      <div className="absolute top-[-10%] left-[-10%] w-125 h-125 rounded-full bg-violet-200/40 blur-[100px] mix-blend-multiply animate-pulse-slow"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-125 h-125 rounded-full bg-violet-200/40 blur-[100px] mix-blend-multiply animate-pulse-slow pointer-events-none"></div>
       {/* Blob Teal di kanan bawah */}
-      <div className="absolute bottom-[-10%] right-[-10%] w-125 h-125 rounded-full bg-teal-200/40 blur-[100px] mix-blend-multiply animate-pulse-slow delay-1000"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-125 h-125 rounded-full bg-teal-200/40 blur-[100px] mix-blend-multiply animate-pulse-slow delay-1000 pointer-events-none"></div>
       {/* Blob Orange kecil di tengah untuk warmth */}
-      <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-75 h-75 rounded-full bg-orange-100/50 blur-[80px] mix-blend-multiply"></div>
+      <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-75 h-75 rounded-full bg-orange-100/50 blur-[80px] mix-blend-multiply pointer-events-none"></div>
 
       {/* --- MAIN GLASS CARD --- */}
       <div className="w-full max-w-md relative z-10">

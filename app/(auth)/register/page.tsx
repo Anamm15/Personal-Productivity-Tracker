@@ -58,8 +58,8 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-[#FDFCF8] font-sans relative flex items-center justify-center p-4 overflow-hidden selection:bg-teal-200">
       {/* --- Background Decoration */}
-      <div className="absolute top-[-20%] right-[-10%] w-150 h-150 rounded-full bg-rose-200/30 blur-[120px] mix-blend-multiply animate-pulse-slow"></div>
-      <div className="absolute bottom-[-10%] left-[-20%] w-125 h-125 rounded-full bg-indigo-200/30 blur-[120px] mix-blend-multiply animate-pulse-slow delay-700"></div>
+      <div className="absolute top-[-20%] right-[-10%] w-150 h-150 rounded-full bg-rose-200/30 blur-[120px] mix-blend-multiply animate-pulse-slow pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] left-[-20%] w-125 h-125 rounded-full bg-indigo-200/30 blur-[120px] mix-blend-multiply animate-pulse-slow delay-700 pointer-events-none"></div>
 
       <div className="w-full max-w-md relative z-10">
         {/* Logo Decoration */}

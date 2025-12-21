@@ -26,8 +26,8 @@ export default function GoalsPage() {
   return (
     <div className="min-h-screen bg-[#FDFCF8] text-stone-800 font-sans relative overflow-x-hidden selection:bg-indigo-200">
       {/* Background Decororation */}
-      <div className="fixed top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-indigo-300/20 blur-[120px] -z-10 mix-blend-multiply"></div>
-      <div className="fixed bottom-[10%] right-[-10%] w-125 h-125 rounded-full bg-rose-300/20 blur-[100px] -z-10 mix-blend-multiply"></div>
+      <div className="fixed top-[-20%] left-[-10%] w-150 h-150 rounded-full bg-indigo-300/20 blur-[120px] -z-10 mix-blend-multiply pointer-events-none"></div>
+      <div className="fixed bottom-[10%] right-[-10%] w-125 h-125 rounded-full bg-rose-300/20 blur-[100px] -z-10 mix-blend-multiply pointer-events-none"></div>
 
       {/* --- HEADER --- */}
       <Header

@@ -25,9 +25,9 @@ export default function DashboardEnhanced() {
     <div className="min-h-screen bg-background selection:bg-teal-200 selection:text-teal-900 relative overflow-hidden font-sans">
       {/* --- DEKORASI LATAR BELAKANG (Aurora Blooms) --- */}
       {/* Background Decoration */}
-      <div className="absolute top-[-10%] right-[-5%] w-125 h-125 rounded-full bg-teal-200/40 blur-[100px] z-10 mix-blend-multiply animate-pulse-slow"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-125 h-125 rounded-full bg-orange-200/40 blur-[120px] z-10 mix-blend-multiply animate-pulse-slow delay-700"></div>
-      <div className="absolute top-[40%] left-[30%] w-100 h-100 rounded-full bg-violet-200/50 blur-[90px] z-10 mix-blend-multiply"></div>
+      <div className="absolute top-[-10%] right-[-5%] w-125 h-125 rounded-full bg-teal-200/40 blur-[100px] z-10 mix-blend-multiply animate-pulse-slow pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] left-[-10%] w-125 h-125 rounded-full bg-orange-200/40 blur-[120px] z-10 mix-blend-multiply animate-pulse-slow delay-700 pointer-events-none"></div>
+      <div className="absolute top-[40%] left-[30%] w-100 h-100 rounded-full bg-violet-200/50 blur-[90px] z-10 mix-blend-multiply pointer-events-none"></div>
 
       <main className="max-w-5xl mx-auto px-4 pb-28 pt-8 space-y-10">
         <MainFocusSection />
