@@ -1,18 +1,26 @@
 export const HOUR_HEIGHT = 80;
 export const START_HOUR = 6;
 export const END_HOUR = 23;
-export const DAYS = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+export const DAYS = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 export const MONTHS = [
-  "Januari",
-  "Februari",
-  "Maret",
+  "January",
+  "February",
+  "March",
   "April",
-  "Mei",
-  "Juni",
-  "Juli",
-  "Agustus",
+  "May",
+  "June",
+  "July",
+  "August",
   "September",
-  "Oktober",
+  "October",
   "November",
-  "Desember",
+  "December",
 ];

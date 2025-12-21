@@ -7,11 +7,16 @@ import { createGoalSchema } from "./validation";
 export async function GET(req: NextRequest) {
   try {
     const userId = req.headers.get("x-user-id");
+    const date = new URL(req.url).searchParams.get("date");
     if (!userId) {
       throw new AppError("Unauthorized", 401);
     }
 
-    const goals = await GetGoals(userId);
+    if (!date) {
+      throw new AppError("Date is required", 400);
+    }
+
+    const goals = await GetGoals(userId, date);
     return buildSuccessResponse(goals, "Goals fetched successfully", 200);
   } catch (error) {
     if (error instanceof AppError) {

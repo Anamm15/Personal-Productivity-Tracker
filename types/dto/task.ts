@@ -17,9 +17,9 @@ export type TaskResponse = {
 export type TaskCreateRequest = {
   title: string;
   description: string;
+  date: string;
   startTime: string;
   endTime: string;
-  date: string;
   color?: string;
   tags?: string[];
   reminder?: string;
@@ -27,8 +27,10 @@ export type TaskCreateRequest = {
 
 export type TaskUpdateRequest = {
   title?: string;
-  description?: string;
+  description?: string | null;
   startTime?: string;
   endTime?: string;
   status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELED";
+  reminder?: string | null;
+  tags?: string[] | null;
 };

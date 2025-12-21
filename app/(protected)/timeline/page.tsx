@@ -7,10 +7,11 @@ import MainTimelineContent from "./components/MainContent";
 import Header from "./components/Header";
 import TaskModal from "./components/TaskModal";
 import { TaskResponse } from "@/types/dto/task";
+import DetailTaskModal from "./components/DetailTaskModal";
 
 export default function DailyTimelineWithDate() {
-  const [currentDate, setCurrentDate] = useState(new Date()); // State Tanggal Utama
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false); // State Modal Kalender
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isDetailTaskModalOpen, setIsDetailTaskModalOpen] = useState(false);
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<TaskResponse | null>(null);
@@ -33,6 +34,7 @@ export default function DailyTimelineWithDate() {
       <MainTimelineContent
         setSelectedTask={setSelectedTask}
         setIsTaskModalOpen={setIsDetailTaskModalOpen}
+        currentDate={currentDate}
       />
 
       {/* --- Custom Calender Modal --- */}
@@ -46,10 +48,10 @@ export default function DailyTimelineWithDate() {
 
       {isDetailTaskModalOpen && (
         <Modal title="Detail Tugas" setIsModalOpen={setIsDetailTaskModalOpen}>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-            esse recusandae quidem voluptatibus magni dicta!
-          </p>
+          <DetailTaskModal
+            task={selectedTask}
+            setIsModalOpen={setIsDetailTaskModalOpen}
+          />
         </Modal>
       )}
 

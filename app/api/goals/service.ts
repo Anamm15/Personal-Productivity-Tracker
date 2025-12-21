@@ -1,19 +1,27 @@
 import { db } from "@/lib/db";
-import { eq } from "drizzle-orm";
+import { and, eq, gte, lte, or } from "drizzle-orm";
 import { goals } from "@/database/schema/goal";
 import { AppError } from "@/lib/exceptions";
 import { CreateGoalRequest } from "@/types/dto/goal";
+import { getEndOfMonth, localISODate } from "@/utils/datetime";
 
-export async function GetGoals(userId: string) {
+export async function GetGoals(userId: string, dateStr: string) {
+  const startDateObj = new Date(dateStr);
+  const startOfMonth = localISODate(startDateObj);
+  const endOfMonth = getEndOfMonth(startDateObj);
   const goalsData = await db.query.goals.findMany({
-    where: eq(goals.userId, userId),
+    where: and(
+      eq(goals.userId, userId),
+      or(lte(goals.start, endOfMonth), gte(goals.deadline, startOfMonth))
+    ),
     with: {
       milestones: true,
     },
+    orderBy: (goals, { asc }) => [asc(goals.start)],
   });
 
   if (goalsData.length === 0) {
-    throw new AppError("No goals found", 404);
+    return [];
   }
 
   return goalsData;

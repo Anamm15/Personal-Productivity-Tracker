@@ -13,7 +13,7 @@ export function Modal({ title, setIsModalOpen, children }: ModalProps) {
         className="absolute inset-0 bg-stone-900/20 backdrop-blur-sm"
         onClick={() => setIsModalOpen(false)}
       ></div>
-      <div className="relative w-full max-w-md bg-white rounded-3xl p-6 animate-in zoom-in-95 duration-300 transition-all">
+      <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 animate-in zoom-in-95 duration-300 transition-all">
         <h3 className="font-bold text-xl mb-2">{title}</h3>
         {children}
         <button

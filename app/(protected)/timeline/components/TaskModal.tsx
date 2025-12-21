@@ -13,6 +13,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useCreateTask } from "../../dashboard/hooks/useTasks";
+import { localISODate } from "@/utils/datetime";
 
 type TaskModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -44,14 +45,11 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
       .filter(Boolean);
     const lowerColor = color.toLowerCase();
     const colorAttrib = `bg-${lowerColor}-100/80 border-${lowerColor}-300 text-${lowerColor}-700`;
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const isoDate = `${year}-${month}-${day}`;
+
     const payload = {
       title,
       description,
-      date: isoDate,
+      date: localISODate(date),
       tags: tagsArr,
       startTime,
       endTime,
@@ -81,7 +79,6 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Contoh: Selesaikan API Gateway"
                 className="w-full pl-12 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all font-semibold text-stone-700 placeholder:text-stone-300"
-                autoFocus
               />
             </div>
           </div>
@@ -212,7 +209,6 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
                 onChange={(e) => setColor(e.target.value)}
                 placeholder="Contoh: red, blue, green... (choose one)"
                 className="w-full pl-12 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all font-semibold text-stone-700 placeholder:text-stone-300"
-                autoFocus
               />
             </div>
           </div>

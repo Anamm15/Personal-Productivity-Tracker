@@ -1,4 +1,13 @@
-export const getThemeColors = (theme?: string) => {
+export type Theme = {
+  bg: string;
+  text: string;
+  border: string;
+  accent: string;
+  ring: string;
+  fill: string;
+};
+
+export const getThemeColors = (theme?: string): Theme => {
   if (!theme) {
     // cari default baru
     return {

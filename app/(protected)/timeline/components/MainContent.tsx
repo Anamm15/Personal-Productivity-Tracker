@@ -1,5 +1,5 @@
 import { END_HOUR, HOUR_HEIGHT, START_HOUR } from "@/constants/date";
-import { timeStringToMinutes } from "@/utils/datetime";
+import { localISODate, timeStringToMinutes } from "@/utils/datetime";
 import React, { useEffect, useState } from "react";
 import { useTasks } from "../../dashboard/hooks/useTasks";
 import { TaskResponse } from "@/types/dto/task";
@@ -8,11 +8,13 @@ import { AlertCircle, Loader2 } from "lucide-react";
 type MainTimelineContentProps = {
   setSelectedTask: React.Dispatch<React.SetStateAction<TaskResponse | null>>;
   setIsTaskModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  currentDate: Date;
 };
 
 export default function MainTimelineContent({
   setSelectedTask,
   setIsTaskModalOpen,
+  currentDate,
 }: MainTimelineContentProps) {
   const [now, setNow] = useState<Date | null>(null);
   const {
@@ -20,7 +22,7 @@ export default function MainTimelineContent({
     isLoading,
     isError,
     error,
-  } = useTasks(new Date().toISOString().split("T")[0]);
+  } = useTasks(localISODate(currentDate));
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

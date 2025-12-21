@@ -4,8 +4,15 @@ import { AlertCircle, Clock, Loader2 } from "lucide-react";
 import { agendaItems } from "./MockData";
 import { timeStringToMinutes, timeToDate } from "@/utils/datetime";
 import { useTasks } from "../hooks/useTasks";
+import { TaskResponse } from "@/types/dto/task";
 
-export default function TimelineSection() {
+export default function TimelineSection({
+  setSelectedTask,
+  setIsModalOpen,
+}: {
+  setSelectedTask: React.Dispatch<React.SetStateAction<TaskResponse | null>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [now, setNow] = useState<Date | null>(null);
   const {
     data: tasks,
@@ -94,6 +101,10 @@ export default function TimelineSection() {
 
                 {/* Card Content */}
                 <div
+                  onClick={() => {
+                    setSelectedTask(item);
+                    setIsModalOpen(true);
+                  }}
                   className={`flex-1 bg-white/80 hover:bg-teal-50/40 p-5 rounded-3xl transition-all border border-stone-200/50 hover:border-teal-400/80 shadow-sm cursor-pointer group-hover:translate-x-1
                     ${
                       status === "ACTIVE"

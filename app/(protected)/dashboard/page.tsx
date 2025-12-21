@@ -6,16 +6,19 @@ import MainFocusSection from "./components/MainFocus";
 import TimelineSection from "./components/Timeline";
 import { Modal } from "@/components/Modal";
 import { useQuickAddTask } from "./hooks/useTasks";
+import DetailTaskModal from "../timeline/components/DetailTaskModal";
+import { TaskResponse } from "@/types/dto/task";
 
 export default function DashboardEnhanced() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isQuickAddModalOpen, setIsQuickAddModalOpen] = useState(false);
+  const [isDetailTaskModalOpen, setIsDetailTaskModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<TaskResponse | null>(null);
   const [command, setCommand] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { createQuickTaskHandler, isLoading } = useQuickAddTask();
+  const { mutate: createQuickTask } = useQuickAddTask();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await createQuickTaskHandler(command);
+    createQuickTask(command);
   };
 
   return (
@@ -28,13 +31,16 @@ export default function DashboardEnhanced() {
 
       <main className="max-w-5xl mx-auto px-4 pb-28 pt-8 space-y-10">
         <MainFocusSection />
-        <TimelineSection />
+        <TimelineSection
+          setSelectedTask={setSelectedTask}
+          setIsModalOpen={setIsDetailTaskModalOpen}
+        />
       </main>
 
       {/* --- Quick Add FAB (Gradient Button) --- */}
       <div className="fixed bottom-8 right-8 z-40">
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setIsQuickAddModalOpen(true)}
           className="group flex items-center justify-center w-14 h-14 bg-linear-to-tr from-stone-800 to-stone-900 text-white rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:scale-105 hover:shadow-teal-500/30 transition-all duration-300 relative overflow-hidden"
         >
           <div className="absolute inset-0 bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
@@ -42,9 +48,19 @@ export default function DashboardEnhanced() {
         </button>
       </div>
 
+      {/* --- MODAL (Detail Task) --- */}
+      {isDetailTaskModalOpen && (
+        <Modal title="Detail Tugas" setIsModalOpen={setIsDetailTaskModalOpen}>
+          <DetailTaskModal
+            task={selectedTask}
+            setIsModalOpen={setIsDetailTaskModalOpen}
+          />
+        </Modal>
+      )}
+
       {/* --- MODAL (Quick Add Task) --- */}
-      {isModalOpen && (
-        <Modal setIsModalOpen={setIsModalOpen} title="Quick Add Task">
+      {isQuickAddModalOpen && (
+        <Modal setIsModalOpen={setIsQuickAddModalOpen} title="Quick Add Task">
           <input
             type="text"
             placeholder="Contoh: Meeting jam 10 @08:30-10:00"

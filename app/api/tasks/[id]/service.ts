@@ -56,6 +56,17 @@ export async function Update(
     existingTask[0].status = task.status;
   }
 
+  if (
+    task.reminder !== undefined &&
+    task.reminder !== existingTask[0].reminder
+  ) {
+    existingTask[0].reminder = task.reminder;
+  }
+
+  if (task.tags !== undefined && task.tags !== existingTask[0].tags) {
+    existingTask[0].tags = task.tags;
+  }
+
   const updatedTask = await db
     .update(tasks)
     .set(task)

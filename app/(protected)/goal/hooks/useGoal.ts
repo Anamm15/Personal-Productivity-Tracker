@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getGoals,
   createGoal,
@@ -10,16 +10,16 @@ import {
 } from "@/services/goal";
 import { GoalResponse, UpdateGoalRequest } from "@/types/dto/goal";
 import { toast } from "sonner";
-import { CreateMilestoneRequest } from "@/types/dto/milestone";
 
-export const useGoalsQuery = () => {
+export const useGoalsQuery = (date: string) => {
   return useQuery<GoalResponse[] | null>({
     queryKey: ["goals"],
-    queryFn: getGoals,
+    queryFn: () => getGoals(date),
   });
 };
 
 export const useCreateGoal = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createGoal,
 
@@ -29,6 +29,8 @@ export const useCreateGoal = () => {
     },
 
     onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ["goals"] });
+
       toast.success("Goal Created successfully", {
         id: context?.toastId,
         duration: 3000,
@@ -52,6 +54,7 @@ export const useCreateGoal = () => {
 };
 
 export const useDeleteGoal = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteGoal,
 
@@ -61,6 +64,7 @@ export const useDeleteGoal = () => {
     },
 
     onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ["goals"] });
       toast.success("Goal Deleted successfully", {
         id: context?.toastId,
         duration: 3000,
@@ -84,6 +88,7 @@ export const useDeleteGoal = () => {
 };
 
 export const useUpdateGoal = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateGoalRequest }) =>
       updateGoal(id, data),
@@ -94,6 +99,7 @@ export const useUpdateGoal = () => {
     },
 
     onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ["goals"] });
       toast.success("Goal Updated successfully", {
         id: context?.toastId,
         duration: 3000,

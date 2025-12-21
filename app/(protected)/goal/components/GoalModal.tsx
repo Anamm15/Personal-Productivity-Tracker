@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Modal } from "@/components/Modal";
-import Calender from "@/components/Calender"; // Pastikan path ini sesuai
+import Calender from "@/components/Calender";
 import {
   Gift,
   Calendar as CalendarIcon,
@@ -12,29 +12,39 @@ import {
   Palette,
   ArrowRight,
 } from "lucide-react";
-import { useCreateGoal } from "../hooks/useGoal";
+import { useCreateGoal, useUpdateGoal } from "../hooks/useGoal";
 import FormInput from "@/components/form/Input";
 import FormTextarea from "@/components/form/TextArea";
 import FormSelect from "@/components/form/Select";
 import Label from "@/components/form/Label";
+import { GoalResponse } from "@/types/dto/goal";
+import { dateStringToDate } from "@/utils/datetime";
 
 type GoalModalProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isUpdate?: boolean;
+  goal: GoalResponse | null;
 };
 
-const INITIAL_STATE_FORM = {
-  title: "",
-  description: "",
-  category: "",
-  start: new Date(),
-  deadline: new Date(),
-  motivation: "",
-  reward: "",
-  theme: "indigo",
-};
+function getInitialFormState(goal: GoalResponse | null) {
+  return {
+    title: goal ? goal.title : "",
+    description: goal ? goal.description : "",
+    category: goal ? goal.category : "",
+    start: goal ? dateStringToDate(goal.start) : new Date(),
+    deadline: goal ? dateStringToDate(goal.deadline) : new Date(),
+    motivation: goal ? goal.motivation : "",
+    reward: goal ? goal.reward : "",
+    theme: goal ? goal.theme : "",
+  };
+}
 
-export default function GoalModal({ setIsModalOpen }: GoalModalProps) {
-  const [formData, setFormData] = useState(INITIAL_STATE_FORM);
+export default function GoalModal({
+  setIsModalOpen,
+  isUpdate = false,
+  goal,
+}: GoalModalProps) {
+  const [formData, setFormData] = useState(getInitialFormState(goal));
 
   // State untuk manajemen Kalender
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -43,10 +53,11 @@ export default function GoalModal({ setIsModalOpen }: GoalModalProps) {
   >(null);
 
   const { mutate: createGoal } = useCreateGoal();
+  const { mutate: updateGoal } = useUpdateGoal();
 
   // Helper untuk update state form
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleChange = (field: keyof typeof INITIAL_STATE_FORM, value: any) => {
+  const handleChange = (field: keyof typeof formData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -75,7 +86,11 @@ export default function GoalModal({ setIsModalOpen }: GoalModalProps) {
     };
 
     console.log("Submitting:", payload);
-    createGoal(payload);
+    if (isUpdate) {
+      updateGoal({ id: goal!.id, data: payload });
+    } else {
+      createGoal(payload);
+    }
     setIsModalOpen(false);
   };
 
@@ -97,7 +112,6 @@ export default function GoalModal({ setIsModalOpen }: GoalModalProps) {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleChange("title", e.target.value)
             }
-            autoFocus
           />
 
           {/* Description */}
