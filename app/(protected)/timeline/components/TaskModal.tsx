@@ -49,7 +49,7 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
     const payload = {
       title,
       description,
-      date: localISODate(date),
+      date: localISODate(date).isoDate,
       tags: tagsArr,
       startTime,
       endTime,

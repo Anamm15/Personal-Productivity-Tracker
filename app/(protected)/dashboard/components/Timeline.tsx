@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 
 import { AlertCircle, Clock, Loader2 } from "lucide-react";
 import { agendaItems } from "./MockData";
-import { timeStringToMinutes, timeToDate } from "@/utils/datetime";
+import {
+  localISODate,
+  timeStringToMinutes,
+  timeToDate,
+} from "@/utils/datetime";
 import { useTasks } from "../hooks/useTasks";
 import { TaskResponse } from "@/types/dto/task";
 
@@ -13,13 +17,9 @@ export default function TimelineSection({
   setSelectedTask: React.Dispatch<React.SetStateAction<TaskResponse | null>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { isoDate } = localISODate(new Date());
   const [now, setNow] = useState<Date | null>(null);
-  const {
-    data: tasks,
-    isLoading,
-    isError,
-    error,
-  } = useTasks(new Date().toISOString().split("T")[0]);
+  const { data: tasks, isLoading, isError, error } = useTasks(isoDate);
 
   function getAgendaStatus(start: string, end: string, now: Date) {
     const startDate = timeToDate(start);

@@ -9,6 +9,3 @@ Content-Type: application/json
    "email": "irul@example.com",
    "password": "irul123654"
 }
-
-###
-POST

@@ -8,7 +8,7 @@ import {
   time,
 } from "drizzle-orm/pg-core";
 import { users } from "./user";
-import { taskStatusEnum } from "./enums";
+import { reminderStatusEnum, taskStatusEnum } from "./enums";
 import { relations } from "drizzle-orm";
 
 export const tasks = pgTable("tasks", {
@@ -29,6 +29,9 @@ export const tasks = pgTable("tasks", {
   color: varchar("color", { length: 50 }),
 
   reminder: time("reminder"),
+  reminderStatus: reminderStatusEnum("reminder_status")
+    .default("PENDING")
+    .notNull(),
 
   status: taskStatusEnum("status").default("PENDING").notNull(),
 

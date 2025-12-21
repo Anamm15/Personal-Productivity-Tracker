@@ -6,3 +6,8 @@ export const taskStatusEnum = pgEnum("task_status", [
   "COMPLETED",
   "CANCELED",
 ]);
+
+export const reminderStatusEnum = pgEnum("reminder_status", [
+  "PENDING",
+  "SENT",
+]);

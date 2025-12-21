@@ -8,6 +8,7 @@ import { Modal } from "@/components/Modal";
 import { useQuickAddTask } from "./hooks/useTasks";
 import DetailTaskModal from "../timeline/components/DetailTaskModal";
 import { TaskResponse } from "@/types/dto/task";
+import { subscribePush } from "@/helpers/subscribePush";
 
 export default function DashboardEnhanced() {
   const [isQuickAddModalOpen, setIsQuickAddModalOpen] = useState(false);
@@ -30,6 +31,12 @@ export default function DashboardEnhanced() {
       <div className="absolute top-[40%] left-[30%] w-100 h-100 rounded-full bg-violet-200/50 blur-[90px] z-10 mix-blend-multiply pointer-events-none"></div>
 
       <main className="max-w-5xl mx-auto px-4 pb-28 pt-8 space-y-10">
+        <button
+          onClick={subscribePush}
+          className="py-2 bg-stone-900 rounded-lg text-lg px-10 text-white/90 cursor-pointer"
+        >
+          Aktifkan Notifikasi
+        </button>
         <MainFocusSection />
         <TimelineSection
           setSelectedTask={setSelectedTask}

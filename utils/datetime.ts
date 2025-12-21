@@ -15,7 +15,11 @@ export function localISODate(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   const isoDate = `${year}-${month}-${day}`;
-  return isoDate;
+
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const isoTime = `${hours}:${minutes}`;
+  return { isoDate, isoTime };
 }
 
 export function dateStringToDate(dateString: string) {
@@ -55,7 +59,7 @@ export function getDaysInMonth(date: Date) {
 
 export function getEndOfMonth(date: Date) {
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  return localISODate(lastDay);
+  return localISODate(lastDay).isoDate;
 }
 
 export const isSameDate = (d1: Date, d2: Date) => {

@@ -2,6 +2,7 @@ import { goals } from "@/database/schema/goal";
 import { db } from "@/lib/db";
 import { AppError } from "@/lib/exceptions";
 import { UpdateGoalRequest } from "@/types/dto/goal";
+import { localISODate } from "@/utils/datetime";
 import { and, eq } from "drizzle-orm";
 
 export async function Update(
@@ -44,7 +45,8 @@ export async function Update(
   }
 
   if (goal.deadline !== undefined && goal.deadline !== "") {
-    existingGoal[0].deadline = new Date(goal.deadline as string).toISOString();
+    const { isoDate } = localISODate(new Date(goal.deadline));
+    existingGoal[0].deadline = isoDate;
   }
 
   const updatedGoal = await db

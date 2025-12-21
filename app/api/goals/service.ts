@@ -7,7 +7,7 @@ import { getEndOfMonth, localISODate } from "@/utils/datetime";
 
 export async function GetGoals(userId: string, dateStr: string) {
   const startDateObj = new Date(dateStr);
-  const startOfMonth = localISODate(startDateObj);
+  const { isoDate: startOfMonth } = localISODate(startDateObj);
   const endOfMonth = getEndOfMonth(startDateObj);
   const goalsData = await db.query.goals.findMany({
     where: and(
@@ -33,8 +33,8 @@ export async function CreateGoal(userId: string, goal: CreateGoalRequest) {
     .values({
       ...goal,
       userId,
-      start: new Date(goal.start).toISOString(),
-      deadline: new Date(goal.deadline).toISOString(),
+      start: localISODate(new Date(goal.start)).isoDate,
+      deadline: localISODate(new Date(goal.deadline)).isoDate,
     })
     .returning();
 

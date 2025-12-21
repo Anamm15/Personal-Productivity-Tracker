@@ -47,5 +47,6 @@ export const config = {
     "/api/goals/:id*",
     "/api/milestones",
     "/api/milestones/:id*",
+    "/api/subscribe",
   ],
 };

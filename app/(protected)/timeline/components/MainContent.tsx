@@ -22,7 +22,7 @@ export default function MainTimelineContent({
     isLoading,
     isError,
     error,
-  } = useTasks(localISODate(currentDate));
+  } = useTasks(localISODate(currentDate).isoDate);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect

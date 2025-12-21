@@ -15,7 +15,7 @@ export default function GoalsPage() {
   const [selectedGoal, setSelectedGoal] = useState<GoalResponse | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const { data: goalsData, isLoading } = useGoalsQuery(
-    localISODate(selectedDate)
+    localISODate(selectedDate).isoDate
   );
   const [goals, setGoals] = useState(goalsData);
 

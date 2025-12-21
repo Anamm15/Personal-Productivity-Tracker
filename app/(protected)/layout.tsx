@@ -15,7 +15,13 @@ export default function ProtectedLayout({
   useEffect(() => {
     api
       .get("/auth/me")
-      .then(() => setLoading(false))
+      .then(() => {
+        setLoading(false);
+
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("/sw.js");
+        }
+      })
       .catch(() => router.replace("/login"));
   }, [router]);
 
