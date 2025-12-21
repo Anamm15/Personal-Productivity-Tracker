@@ -33,7 +33,7 @@ export type UpdateGoalRequest = {
   category?: string;
   start?: string;
   deadline?: string;
-  motivation?: string;
-  reward?: string;
-  theme?: string;
+  motivation?: string | null;
+  reward?: string | null;
+  theme?: string | null;
 };
