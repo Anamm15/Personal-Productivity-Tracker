@@ -15,11 +15,11 @@ export const getStatusConfig = (status: TaskResponse["status"]) => {
         icon: Timer,
         label: "In Progress",
       };
-    case "CANCELED":
+    case "CANCELLED":
       return {
         color: "bg-red-100 text-red-700",
         icon: XCircle,
-        label: "Canceled",
+        label: "Cancelled",
       };
     default:
       return {

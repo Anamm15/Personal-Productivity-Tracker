@@ -1,4 +1,11 @@
-import { CheckCircle2, Circle, Flame, LayoutGrid, Timer } from "lucide-react";
+import {
+  CheckCircle2,
+  Circle,
+  Flame,
+  LayoutGrid,
+  Timer,
+  X,
+} from "lucide-react";
 
 const tagThemes = {
   soft: [
@@ -64,7 +71,7 @@ export const StatusBadge = ({ status }: { status?: string }) => {
     COMPLETED: "bg-emerald-100 text-emerald-700 border-emerald-200",
     PENDING: "bg-amber-100 text-amber-700 border-amber-200",
     IN_PROGRESS: "bg-blue-100 text-blue-700 border-blue-200",
-    CANCELED: "bg-rose-100 text-rose-700 border-rose-200",
+    CANCELLED: "bg-rose-100 text-rose-700 border-rose-200",
     DEFAULT: "bg-stone-100 text-stone-600 border-stone-200",
   };
 
@@ -78,6 +85,7 @@ export const StatusBadge = ({ status }: { status?: string }) => {
       {status === "COMPLETED" && <CheckCircle2 className="w-3 h-3" />}
       {status === "IN_PROGRESS" && <Timer className="w-3 h-3" />}
       {status === "PENDING" && <Circle className="w-3 h-3" />}
+      {status === "CANCELLED" && <X className="w-3 h-3" />}
       {status}
     </span>
   );
