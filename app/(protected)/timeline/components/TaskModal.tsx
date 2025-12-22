@@ -191,8 +191,10 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
 
           <FormCheckbox
             label="Set as Priority"
-            value={isPriority}
-            onChange={setIsPriority}
+            checked={isPriority}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setIsPriority(e.target.checked)
+            }
           />
 
           <button

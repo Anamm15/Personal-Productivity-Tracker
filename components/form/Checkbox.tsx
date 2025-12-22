@@ -14,7 +14,6 @@ export default function FormCheckbox({ label, ...props }: FormCheckboxProps) {
           type="checkbox"
           className="peer appearance-none w-full h-full cursor-pointer"
           {...props}
-          required
         />
         <Check
           className="w-3.5 h-3.5 text-indigo-600 opacity-0 peer-checked:opacity-100 absolute pointer-events-none transition-opacity"
