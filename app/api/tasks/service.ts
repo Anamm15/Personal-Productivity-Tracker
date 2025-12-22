@@ -14,7 +14,7 @@ export async function GetTasks(
     .where(and(eq(tasks.date, date), eq(tasks.userId, userId)));
 
   if (tasksQuery.length === 0) {
-    throw new AppError("No tasks found", 404);
+    return [];
   }
 
   return tasksQuery;

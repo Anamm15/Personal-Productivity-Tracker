@@ -41,6 +41,7 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/api/auth/me",
+    "/api/users/me",
     "/api/tasks",
     "/api/tasks/:id*",
     "/api/goals",

@@ -181,7 +181,7 @@ export default function ExpandedDetails({
           </span>
           <span className="text-xs font-medium text-stone-400">
             {milestones.filter((m) => m.isCompleted).length}/{milestones.length}{" "}
-            Selesai
+            Completed
           </span>
         </div>
 
@@ -262,7 +262,7 @@ export default function ExpandedDetails({
             className="flex items-center gap-3 p-2 pl-3 mt-2 text-stone-400 hover:text-stone-600 cursor-pointer transition-colors border-t border-stone-100 pt-3 group/add"
           >
             <Plus className="w-4 h-4 group-hover/add:scale-110 transition-transform" />
-            <span className="text-sm font-bold">Tambah langkah kecil...</span>
+            <span className="text-sm font-bold">Add Milestone</span>
           </div>
         )}
         <div className="mt-4 flex items-center gap-2">

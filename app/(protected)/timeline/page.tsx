@@ -47,9 +47,10 @@ export default function DailyTimelineWithDate() {
       )}
 
       {isDetailTaskModalOpen && (
-        <Modal title="Detail Tugas" setIsModalOpen={setIsDetailTaskModalOpen}>
+        <Modal title="Task Detail" setIsModalOpen={setIsDetailTaskModalOpen}>
           <DetailTaskModal
             task={selectedTask}
+            setTask={setSelectedTask}
             setIsModalOpen={setIsDetailTaskModalOpen}
           />
         </Modal>
@@ -57,7 +58,7 @@ export default function DailyTimelineWithDate() {
 
       {isCreateTaskModalOpen && (
         <Modal
-          title="Buat Tugas Baru"
+          title="Create New Task"
           setIsModalOpen={setIsCreateTaskModalOpen}
         >
           <TaskModal setIsModalOpen={setIsCreateTaskModalOpen} />

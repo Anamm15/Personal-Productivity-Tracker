@@ -38,7 +38,7 @@ export default function GoalsPage() {
 
       {/* --- MAIN CONTENT --- */}
       <MainContent
-        goals={goals}
+        goals={goals || []}
         setGoals={setGoals}
         isLoading={isLoading}
         setIsUpdateModalOpen={setIsUpdateModalOpen}

@@ -55,6 +55,7 @@ export const useCreateTask = () => {
         id: context?.toastId,
         duration: 4000,
       });
+      console.log(error);
     },
   });
 };

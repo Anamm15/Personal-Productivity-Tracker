@@ -4,7 +4,7 @@ export const taskStatusEnum = pgEnum("task_status", [
   "PENDING",
   "IN_PROGRESS",
   "COMPLETED",
-  "CANCELED",
+  "CANCELLED",
 ]);
 
 export const reminderStatusEnum = pgEnum("reminder_status", [

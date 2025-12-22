@@ -68,7 +68,7 @@ export default function MainTimelineContent({
   if (isError) {
     return (
       <div className="text-rose-500 flex gap-2 justify-center mt-10">
-        <AlertCircle /> Gagal memuat data: {error.message}
+        <AlertCircle /> Failed to load tasks: {error.message}
       </div>
     );
   }

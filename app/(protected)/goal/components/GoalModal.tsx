@@ -79,16 +79,31 @@ export default function GoalModal({
   };
 
   const handleCreateGoal = () => {
-    const payload = {
-      ...formData,
-      start: formatDateApi(formData.start),
-      deadline: formatDateApi(formData.deadline),
-    };
-
-    console.log("Submitting:", payload);
     if (isUpdate) {
+      const payload = {
+        ...formData,
+        start: formatDateApi(formData.start),
+        deadline: formatDateApi(formData.deadline),
+      };
       updateGoal({ id: goal!.id, data: payload });
     } else {
+      const basePayload = {
+        title: formData.title,
+        category: formData.category,
+        start: formatDateApi(formData.start),
+        deadline: formatDateApi(formData.deadline),
+      };
+
+      const optionalPayload = Object.fromEntries(
+        Object.entries({
+          description: formData.description,
+          motivation: formData.motivation,
+          reward: formData.reward,
+          theme: formData.theme,
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        }).filter(([_, value]) => value !== "")
+      );
+      const payload = { ...basePayload, ...optionalPayload };
       createGoal(payload);
     }
     setIsModalOpen(false);
@@ -101,13 +116,15 @@ export default function GoalModal({
 
   return (
     <div>
-      <Modal title="Mulai Perjalanan Baru" setIsModalOpen={setIsModalOpen}>
+      <Modal title="Start New Journey" setIsModalOpen={setIsModalOpen}>
         <div className="space-y-5">
           {/* Title */}
           <FormInput
-            label="Judul Goal"
+            label="Title"
+            type="text"
+            required
             icon={Type}
-            placeholder="Contoh: Menabung 100 Juta"
+            placeholder="Example: Go to Gym"
             value={formData.title}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleChange("title", e.target.value)
@@ -116,9 +133,9 @@ export default function GoalModal({
 
           {/* Description */}
           <FormTextarea
-            label="Deskripsi"
+            label="Description"
             icon={AlignLeft}
-            placeholder="Jelaskan detail targetmu..."
+            placeholder="What you want to achieve?"
             rows={2}
             value={formData.description}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
@@ -128,8 +145,9 @@ export default function GoalModal({
 
           {/* Motivation*/}
           <FormTextarea
-            label="Motivasi (The Why)"
-            placeholder="Kenapa ini penting?"
+            label="Motivation (The Why)"
+            placeholder="Why you want to achieve this?"
+            type="text"
             rows={2}
             value={formData.motivation}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -139,7 +157,7 @@ export default function GoalModal({
 
           {/* Reward */}
           <FormInput
-            label="Hadiah (Reward)"
+            label="Reward"
             icon={Gift}
             placeholder="Self reward..."
             value={formData.reward}
@@ -151,7 +169,9 @@ export default function GoalModal({
           {/* Category & Theme Grid */}
           <div className="grid grid-cols-2 gap-4">
             <FormInput
-              label="Kategori"
+              label="Category"
+              type="text"
+              required
               icon={LayoutGrid}
               placeholder="Finance, Health..."
               value={formData.category}
@@ -161,7 +181,7 @@ export default function GoalModal({
             />
 
             <FormSelect
-              label="Tema Warna"
+              label="Theme Color"
               icon={Palette}
               value={formData.theme}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -179,7 +199,7 @@ export default function GoalModal({
           {/* Date Picker Section - Menggunakan Custom Calendar Logic */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Mulai</Label>
+              <Label required>Start</Label>
               <div
                 onClick={() => openCalendar("start")}
                 className="relative group cursor-pointer"
@@ -197,7 +217,7 @@ export default function GoalModal({
             </div>
 
             <div>
-              <Label>Deadline</Label>
+              <Label required>Deadline</Label>
               <div
                 onClick={() => openCalendar("deadline")}
                 className="relative group cursor-pointer"

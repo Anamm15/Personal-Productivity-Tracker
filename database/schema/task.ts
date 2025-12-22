@@ -6,6 +6,7 @@ import {
   date,
   varchar,
   time,
+  boolean,
 } from "drizzle-orm/pg-core";
 import { users } from "./user";
 import { reminderStatusEnum, taskStatusEnum } from "./enums";
@@ -34,6 +35,9 @@ export const tasks = pgTable("tasks", {
     .notNull(),
 
   status: taskStatusEnum("status").default("PENDING").notNull(),
+
+  isPriority: boolean("is_priority").default(false).notNull(),
+  tagPriority: varchar("tag_priority", { length: 50 }),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")

@@ -33,7 +33,7 @@ export default function Header({
                 <ChevronDown className="w-4 h-4 text-stone-400 group-hover:text-stone-800 transition-colors" />
               </h1>
               <p className="text-xs text-stone-500 font-medium">
-                {isToday(currentDate) ? "Hari Ini" : "Jadwal Terpilih"}
+                {isToday(currentDate) ? "Today" : "Chosen Date"}
               </p>
             </div>
           </button>

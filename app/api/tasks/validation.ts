@@ -38,6 +38,9 @@ export const createTaskSchema = z
       .optional(),
 
     reminder: z.string().optional(),
+
+    isPriority: z.boolean().optional(),
+    tagPriority: z.string().optional(),
   })
   .refine(
     (data) => {

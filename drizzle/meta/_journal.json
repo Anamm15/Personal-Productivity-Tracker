@@ -43,6 +43,20 @@
       "when": 1766353664545,
       "tag": "0005_misty_shinobi_shaw",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1766370805187,
+      "tag": "0006_bent_red_ghost",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1766381623916,
+      "tag": "0007_deep_lightspeed",
+      "breakpoints": true
     }
   ]
 }

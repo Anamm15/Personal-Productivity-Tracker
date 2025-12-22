@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bell, Menu, X, Home, Clock, Target, BookUser } from "lucide-react";
+import { useUser } from "@/hooks/useUser";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { data: user } = useUser();
 
   const navLinks = [
     {
@@ -39,7 +41,7 @@ export default function Navbar() {
               <h1 className="text-lg md:text-2xl font-extrabold tracking-tight text-stone-800 leading-tight">
                 Hi,{" "}
                 <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-600 to-violet-600">
-                  Dev!
+                  {user?.name}
                 </span>
               </h1>
             </div>

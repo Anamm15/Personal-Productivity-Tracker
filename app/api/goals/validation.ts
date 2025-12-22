@@ -8,9 +8,19 @@ export const createGoalSchema = z
 
     category: z.string().min(1, "Category is required"),
 
-    start: z.string().date({ message: "Start must valid format" }),
+    start: z
+      .string()
+      .regex(
+        /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/,
+        "Invalid date format (YYYY-MM-DD)"
+      ),
 
-    deadline: z.string().date({ message: "Deadline must valid format" }),
+    deadline: z
+      .string()
+      .regex(
+        /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/,
+        "Invalid date format (YYYY-MM-DD)"
+      ),
 
     motivation: z.string().optional(),
     reward: z.string().optional(),

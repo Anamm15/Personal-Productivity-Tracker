@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getStatusConfig } from "@/helpers/badge";
+import { getStatusConfig } from "@/helpers/badgeConfig";
 import { TaskResponse } from "@/types/dto/task";
 import { formatDate } from "@/utils/datetime";
 import {
@@ -21,11 +21,13 @@ import FormSelect from "@/components/form/Select";
 
 type DetailTaskModalProps = {
   task: TaskResponse | null;
+  setTask: React.Dispatch<React.SetStateAction<TaskResponse | null>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function DetailTaskModal({
   task,
+  setTask,
   setIsModalOpen,
 }: DetailTaskModalProps) {
   const { mutate: updateTask } = useUpdateTask();
@@ -65,6 +67,17 @@ export default function DetailTaskModal({
     setFormData((prev) => ({ ...prev, tags: tagsArray }));
   };
 
+  const handleCompletingTask = () => {
+    updateTask(
+      { id: task.id, data: { status: "COMPLETED" } as TaskResponse },
+      {
+        onSuccess: () => {
+          setTask({ ...task, status: "COMPLETED" });
+        },
+      }
+    );
+  };
+
   const handleSave = () => {
     const payload = {
       ...formData,
@@ -102,14 +115,15 @@ export default function DetailTaskModal({
           {/* Status Badge (Editable dropdown if editing) */}
           {isEditing ? (
             <FormSelect
+              label="status"
               name="status"
               value={formData.status}
               onChange={handleChange}
               options={[
-                { value: "COMPLETED", label: "Selesai" },
-                { value: "IN_PROGRESS", label: "Sedang Dikerjakan" },
-                { value: "CANCELED", label: "Dibatalkan" },
-                { value: "PENDING", label: "Menunggu" },
+                { value: "COMPLETED", label: "Completed" },
+                { value: "IN_PROGRESS", label: "In Progress" },
+                { value: "CANCELED", label: "Canceled" },
+                { value: "PENDING", label: "Pending" },
               ]}
             />
           ) : (
@@ -124,11 +138,12 @@ export default function DetailTaskModal({
           {/* Title Input vs Text */}
           {isEditing ? (
             <FormInput
+              label="title"
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder="Judul Tugas"
+              placeholder="Task Title"
             />
           ) : (
             <h2 className="text-2xl font-bold text-stone-900 leading-tight">
@@ -139,7 +154,7 @@ export default function DetailTaskModal({
       </div>
 
       {/* --- TIME & DATE GRID --- */}
-      <div className="grid grid-cols-1 gap-3">
+      <div className="space-y-3">
         {/* Date Field */}
         <div className="bg-stone-50 p-3 rounded-xl border border-stone-100 flex items-center gap-3">
           <div className="p-2 bg-white rounded-lg shadow-sm text-stone-600">
@@ -147,7 +162,7 @@ export default function DetailTaskModal({
           </div>
           <div className="w-full">
             <p className="text-xs text-stone-500 font-medium uppercase tracking-wide">
-              Tanggal
+              Date
             </p>
             <p className="text-sm font-semibold text-stone-800">
               {formatDate(task.date)}
@@ -162,11 +177,12 @@ export default function DetailTaskModal({
           </div>
           <div className="w-full">
             <p className="text-xs text-stone-500 font-medium uppercase tracking-wide">
-              Waktu
+              Time
             </p>
             {isEditing ? (
               <div className="flex items-center gap-2 mt-1">
-                <input
+                <FormInput
+                  label=""
                   type="time"
                   name="startTime"
                   value={formData.startTime || ""}
@@ -174,7 +190,8 @@ export default function DetailTaskModal({
                   className="bg-transparent border-b border-stone-300 text-sm font-semibold text-stone-900 focus:border-stone-900 outline-none w-20"
                 />
                 <span>-</span>
-                <input
+                <FormInput
+                  label=""
                   type="time"
                   name="endTime"
                   value={formData.endTime || ""}
@@ -225,12 +242,13 @@ export default function DetailTaskModal({
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-stone-900 font-semibold">
             <AlignLeft className="w-4 h-4 text-stone-400" />
-            <h3>Deskripsi</h3>
+            <h3>Description</h3>
           </div>
           <div className="pl-6 w-full">
             {isEditing ? (
               <FormTextarea
                 name="description"
+                placeholder="What's your task about?"
                 value={formData.description}
                 onChange={handleChange}
               />
@@ -240,7 +258,7 @@ export default function DetailTaskModal({
               </p>
             ) : (
               <p className="text-stone-400 text-sm italic">
-                Tidak ada deskripsi tambahan.
+                No description yet
               </p>
             )}
           </div>
@@ -294,7 +312,7 @@ export default function DetailTaskModal({
             className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-stone-500 hover:bg-stone-100 transition-colors"
           >
             <X className="w-4 h-4" />
-            <span>Batal</span>
+            <span>Cancel</span>
           </button>
         ) : (
           <button
@@ -302,7 +320,7 @@ export default function DetailTaskModal({
             className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 hover:text-red-600 transition-colors group"
           >
             <Trash2 className="w-4 h-4 transition-transform group-hover:scale-110" />
-            <span>Hapus</span>
+            <span>Delete</span>
           </button>
         )}
 
@@ -314,30 +332,24 @@ export default function DetailTaskModal({
               className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-stone-900 text-white hover:bg-stone-800 shadow-lg hover:shadow-stone-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all"
             >
               <Save className="w-4 h-4" />
-              <span>Simpan Perubahan</span>
+              <span>Save</span>
             </button>
           ) : (
             <>
               <button
-                onClick={() => setIsEditing(true)} // Aktifkan Mode Edit
+                onClick={() => setIsEditing(true)}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors border border-stone-200"
               >
                 <Edit className="w-4 h-4" />
-                <span>Edit</span>
+                <span>Update</span>
               </button>
 
               {task.status !== "COMPLETED" && (
                 <button
-                  // Anggap tombol selesai juga memanggil updateTask status
-                  onClick={() =>
-                    updateTask({
-                      id: task.id,
-                      data: { ...task, status: "COMPLETED" },
-                    })
-                  }
+                  onClick={handleCompletingTask}
                   className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-stone-900 text-white hover:bg-stone-800 shadow-lg hover:shadow-stone-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all"
                 >
-                  <span>Selesai</span>
+                  <span>Complete</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               )}

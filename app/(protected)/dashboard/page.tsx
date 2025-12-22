@@ -1,26 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
-import { Plus } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { AlertCircle, Loader2, Plus } from "lucide-react";
 import MainFocusSection from "./components/MainFocus";
 import TimelineSection from "./components/Timeline";
 import { Modal } from "@/components/Modal";
-import { useQuickAddTask } from "./hooks/useTasks";
+import { useQuickAddTask, useTasks } from "./hooks/useTasks";
 import DetailTaskModal from "../timeline/components/DetailTaskModal";
 import { TaskResponse } from "@/types/dto/task";
 import { subscribePush } from "@/helpers/subscribePush";
+import { localISODate } from "@/utils/datetime";
 
 export default function DashboardEnhanced() {
   const [isQuickAddModalOpen, setIsQuickAddModalOpen] = useState(false);
   const [isDetailTaskModalOpen, setIsDetailTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<TaskResponse | null>(null);
   const [command, setCommand] = useState("");
+  const { isoDate } = localISODate(new Date());
+  const { data: tasks, isLoading, isError, error } = useTasks(isoDate);
   const { mutate: createQuickTask } = useQuickAddTask();
+  const [priorityTasks, setPriorityTasks] = useState<TaskResponse[]>([]);
+
+  useEffect(() => {
+    subscribePush();
+  }, []);
+
+  useEffect(() => {
+    if (tasks) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPriorityTasks(tasks.filter((task) => task.isPriority));
+    }
+  }, [tasks]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     createQuickTask(command);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-rose-500 flex gap-2 justify-center mt-10">
+        <AlertCircle /> Failed to Load Data: {error.message}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background selection:bg-teal-200 selection:text-teal-900 relative overflow-hidden font-sans">
@@ -31,16 +62,11 @@ export default function DashboardEnhanced() {
       <div className="absolute top-[40%] left-[30%] w-100 h-100 rounded-full bg-violet-200/50 blur-[90px] z-10 mix-blend-multiply pointer-events-none"></div>
 
       <main className="max-w-5xl mx-auto px-4 pb-28 pt-8 space-y-10">
-        <button
-          onClick={subscribePush}
-          className="py-2 bg-stone-900 rounded-lg text-lg px-10 text-white/90 cursor-pointer"
-        >
-          Aktifkan Notifikasi
-        </button>
-        <MainFocusSection />
+        <MainFocusSection priorityTasks={priorityTasks} />
         <TimelineSection
           setSelectedTask={setSelectedTask}
           setIsModalOpen={setIsDetailTaskModalOpen}
+          tasks={tasks || []}
         />
       </main>
 
@@ -57,9 +83,10 @@ export default function DashboardEnhanced() {
 
       {/* --- MODAL (Detail Task) --- */}
       {isDetailTaskModalOpen && (
-        <Modal title="Detail Tugas" setIsModalOpen={setIsDetailTaskModalOpen}>
+        <Modal title="Task Detail" setIsModalOpen={setIsDetailTaskModalOpen}>
           <DetailTaskModal
             task={selectedTask}
+            setTask={setSelectedTask}
             setIsModalOpen={setIsDetailTaskModalOpen}
           />
         </Modal>
