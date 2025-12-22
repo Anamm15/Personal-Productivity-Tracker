@@ -15,7 +15,7 @@ export const updateTaskSchema = z.object({
     .optional(),
 
   status: z
-    .enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELED"])
+    .enum(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"])
     .optional(),
 
   tags: z.array(z.string()).nullable().optional(),
