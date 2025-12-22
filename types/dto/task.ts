@@ -9,7 +9,7 @@ export type TaskResponse = {
   tags: string[] | null;
   color: string | null;
   reminder: string | null;
-  status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELED";
+  status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
   isPriority: boolean;
   tagPriority: string | null;
   createdAt: Date;
@@ -34,7 +34,7 @@ export type TaskUpdateRequest = {
   description?: string | null;
   startTime?: string;
   endTime?: string;
-  status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELED";
+  status?: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
   reminder?: string | null;
   tags?: string[] | null;
   isPriority?: boolean;
