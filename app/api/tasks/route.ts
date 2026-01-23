@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       return buildFailedResponse(
         "Invalid input data",
         validation.error.flatten().fieldErrors,
-        400
+        400,
       );
     }
 

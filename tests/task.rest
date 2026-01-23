@@ -1,13 +1,13 @@
 @baseUrl = http://localhost:3000/api/tasks
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhZDkyOWQ4Zi03YmJiLTQ1NmEtYjNjMy1kY2M2YjkyZTkzOTUiLCJlbWFpbCI6ImlydWxAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjYxODcyOTksImV4cCI6MTc2Njc5MjA5OX0.fF8oXJQdUBy0CSdr5pq04BeoF5xh0gR61ajubnDbJ6c
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzZDY5M2FmOC0xMjVkLTQ4MzktYWMyOC0wZjZhZWQ5Mzc1ZTgiLCJlbWFpbCI6ImlydWx4YXJ0YWxAZ21haWwuY29tIiwiaWF0IjoxNzY5MTM5OTQwLCJleHAiOjE3Njk3NDQ3NDB9.dEr9V-9r_6biOfHVBHF4R-j2o_q_zk5onp_xOT5Uusc
 
 ###
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-   "email": "irul@example.com",
-   "password": "irul123654"
+   "email": "irulxartal@gmail.com",
+   "password": "Bedesbanyu2025*"
 }
 
 ###

@@ -11,6 +11,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const { data: user } = useUser();
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
+
   const navLinks = [
     {
       name: "Dashboard",
@@ -94,6 +99,14 @@ export default function Navbar() {
             <span className="absolute top-2.5 right-3 w-2 h-2 bg-rose-500 rounded-full border-2 border-white animate-pulse"></span>
           </button>
 
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
+            className="hidden md:block p-2 px-6 rounded-xl  bg-linear-to-r from-teal-400 to-violet-500 text-white shadow-sm transition-all relative group hover:scale-95 duration-300 cursor-pointer"
+          >
+            Logout
+          </button>
+
           {/* Mobile Hamburger Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -122,7 +135,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)} // Tutup menu saat diklik
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={`
                   flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all
                   ${
@@ -144,6 +157,12 @@ export default function Navbar() {
               </Link>
             );
           })}
+          <button
+            onClick={handleLogout}
+            className="md:hidden p-2 rounded-xl  bg-linear-to-r from-teal-400 to-violet-500 text-white shadow-sm transition-all relative group hover:scale-95 duration-300 cursor-pointer"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </nav>

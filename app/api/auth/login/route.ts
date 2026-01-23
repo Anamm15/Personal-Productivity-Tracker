@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       return buildFailedResponse(
         "Invalid input data",
         validation.error.format(),
-        400
+        400,
       );
     }
 

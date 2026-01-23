@@ -1,34 +1,20 @@
-import { db } from "@/lib/db";
-import { eq, and } from "drizzle-orm";
-import { tasks } from "@/database/schema/task";
 import { AppError } from "@/lib/exceptions";
 import { TaskCreateRequest, TaskResponse } from "@/types/dto/task";
+import { findTasksByDateAndUser, insertTask } from "./repository";
 
 export async function GetTasks(
   date: string,
-  userId: string
+  userId: string,
 ): Promise<TaskResponse[]> {
-  const tasksQuery = await db
-    .select()
-    .from(tasks)
-    .where(and(eq(tasks.date, date), eq(tasks.userId, userId)));
-
-  if (tasksQuery.length === 0) {
-    return [];
-  }
-
-  return tasksQuery;
+  const tasks = await findTasksByDateAndUser(date, userId);
+  return tasks;
 }
 
 export async function CreateTask(
   userId: string,
-  task: TaskCreateRequest
+  task: TaskCreateRequest,
 ): Promise<TaskResponse> {
-  const insertedTask = await db
-    .insert(tasks)
-    .values({ ...task, userId })
-    .returning();
-
+  const insertedTask = await insertTask(userId, task);
   if (!insertedTask || insertedTask.length === 0) {
     throw new AppError("Failed to create task", 500);
   }

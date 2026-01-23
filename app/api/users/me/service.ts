@@ -1,12 +1,6 @@
-import { users } from "@/database/schema/user";
-import { db } from "@/lib/db";
-import { eq } from "drizzle-orm";
+import { getUserById } from "@/app/api/users/repository";
 
 export async function me(userId: string) {
-  const user = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, userId))
-    .limit(1);
-  return user[0];
+  const user = await getUserById(userId);
+  return user;
 }

@@ -1,3 +1,21 @@
+export type Task = {
+  id: string;
+  userId: string;
+  title: string;
+  description: string | null;
+  startTime: string;
+  endTime: string;
+  date: string;
+  tags: string[] | null;
+  color: string | null;
+  reminder: string | null;
+  status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
+  isPriority: boolean;
+  tagPriority: string | null;
+  createdAt: Date;
+  updatedAt: Date | null;
+};
+
 export type TaskResponse = {
   id: string;
   userId: string;

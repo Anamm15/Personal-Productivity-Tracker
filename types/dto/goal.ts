@@ -4,16 +4,16 @@ export type GoalResponse = {
   id: string;
   userId: string;
   title: string;
-  description?: string;
+  description?: string | null;
   category: string;
   start: string;
   deadline: string;
-  motivation?: string;
-  reward?: string;
-  theme?: string;
-  milestones?: MilestoneResponse[];
+  motivation?: string | null;
+  reward?: string | null;
+  theme?: string | null;
+  milestones?: MilestoneResponse[] | null;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 };
 
 export type CreateGoalRequest = {
@@ -29,7 +29,7 @@ export type CreateGoalRequest = {
 
 export type UpdateGoalRequest = {
   title?: string;
-  description?: string;
+  description?: string | null;
   category?: string;
   start?: string;
   deadline?: string;

@@ -71,7 +71,7 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
         isPriority,
         tagPriority,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      }).filter(([_, v]) => v !== "" && v !== undefined && v !== null)
+      }).filter(([_, v]) => v !== "" && v !== undefined && v !== null),
     );
 
     const payload: TaskCreateRequest = { ...basePayload, ...optionalFields };

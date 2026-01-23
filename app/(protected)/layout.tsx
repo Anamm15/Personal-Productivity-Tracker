@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
+import Navbar from "@/components/Navbar";
 
 export default function ProtectedLayout({
   children,
@@ -27,5 +28,10 @@ export default function ProtectedLayout({
 
   if (loading) return null;
 
-  return <>{children}</>;
+  return (
+    <>
+      <Navbar />
+      {children}
+    </>
+  );
 }

@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   if (!authHeader) {
     return NextResponse.json(
       { error: "Authentication token missing" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -14,7 +14,7 @@ export async function middleware(req: NextRequest) {
   if (!token) {
     return NextResponse.json(
       { error: "Authentication token missing" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -33,7 +33,7 @@ export async function middleware(req: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: "Invalid or expired token" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 }

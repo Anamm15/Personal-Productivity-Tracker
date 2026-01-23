@@ -1,3 +1,4 @@
+
 import { CheckCircle2, Flame, LayoutGrid } from "lucide-react";
 
 export const agendaItems = [

@@ -1,8 +1,11 @@
-import { tasks } from "@/database/schema/task";
-import { db } from "@/lib/db";
 import { localISODate } from "@/utils/datetime";
+import { insertTask } from "../repository";
+import { TaskResponse } from "@/types/dto/task";
 
-export async function CreateQuickTask(userId: string, command: string) {
+export async function CreateQuickTask(
+  userId: string,
+  command: string,
+): Promise<TaskResponse> {
   // template title @startTime-@endTime
   const regex =
     /^(.+?)\s+@([01]\d|2[0-3]):([0-5]\d)-([01]\d|2[0-3]):([0-5]\d)$/;
@@ -16,17 +19,14 @@ export async function CreateQuickTask(userId: string, command: string) {
   const endTime = `${match[4]}:${match[5]}`;
   const date = localISODate(new Date()).isoDate;
 
-  const task = await db
-    .insert(tasks)
-    .values({
-      userId: userId,
-      title: title,
-      description: "",
-      date: date,
-      startTime: startTime,
-      endTime: endTime,
-    })
-    .returning();
+  const task = {
+    title: title,
+    description: "",
+    date: date,
+    startTime: startTime,
+    endTime: endTime,
+  };
 
-  return task[0];
+  const insertedTask = await insertTask(userId, task);
+  return insertedTask[0];
 }

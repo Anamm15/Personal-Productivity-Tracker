@@ -1,7 +1,7 @@
 export type MilestoneResponse = {
   id: string;
   title: string;
-  isCompleted: boolean;
+  isCompleted: boolean | null;
   createdAt?: Date;
 };
 

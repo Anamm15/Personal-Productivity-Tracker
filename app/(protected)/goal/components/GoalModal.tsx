@@ -17,7 +17,7 @@ import FormInput from "@/components/form/Input";
 import FormTextarea from "@/components/form/TextArea";
 import FormSelect from "@/components/form/Select";
 import Label from "@/components/form/Label";
-import { GoalResponse } from "@/types/dto/goal";
+import { CreateGoalRequest, GoalResponse } from "@/types/dto/goal";
 import { dateStringToDate } from "@/utils/datetime";
 
 type GoalModalProps = {
@@ -87,7 +87,7 @@ export default function GoalModal({
       };
       updateGoal({ id: goal!.id, data: payload });
     } else {
-      const basePayload = {
+      const basePayload: CreateGoalRequest = {
         title: formData.title,
         category: formData.category,
         start: formatDateApi(formData.start),
@@ -101,7 +101,7 @@ export default function GoalModal({
           reward: formData.reward,
           theme: formData.theme,
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        }).filter(([_, value]) => value !== "")
+        }).filter(([_, value]) => value !== ""),
       );
       const payload = { ...basePayload, ...optionalPayload };
       createGoal(payload);
