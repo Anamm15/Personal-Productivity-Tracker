@@ -1,4 +1,4 @@
-# 🚀 Ascend: Productivity & Goal Tracker
+# 🚀 Productivity & Goal Tracker
 
 **Ascend** is not just another to-do list app. It is a holistic productivity platform designed to help users bridge the gap between daily tasks and long-term life goals.
 Built entirely on the **Next.js** ecosystem, it combines granular task management with high-level goal tracking, visualization, and customizable aesthetics to keep users motivated.
