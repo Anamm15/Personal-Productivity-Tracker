@@ -12,6 +12,7 @@ export type Task = {
   status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
   isPriority: boolean;
   tagPriority: string | null;
+  isDaily: boolean;
   createdAt: Date;
   updatedAt: Date | null;
 };
@@ -30,6 +31,7 @@ export type TaskResponse = {
   status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";
   isPriority: boolean;
   tagPriority: string | null;
+  isDaily: boolean;
   createdAt: Date;
   updatedAt: Date | null;
 };
@@ -45,6 +47,7 @@ export type TaskCreateRequest = {
   reminder?: string;
   isPriority?: boolean;
   tagPriority?: string;
+  isDaily?: boolean;
 };
 
 export type TaskUpdateRequest = {

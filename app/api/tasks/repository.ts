@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { eq, and } from "drizzle-orm";
+import { eq, and, or, asc } from "drizzle-orm";
 import { tasks } from "@/database/schema/task";
 import { Task, TaskCreateRequest, TaskResponse } from "@/types/dto/task";
 import { AppError } from "@/lib/exceptions";
@@ -43,7 +43,13 @@ export async function findTasksByDateAndUser(
   const tasksQuery = await db
     .select()
     .from(tasks)
-    .where(and(eq(tasks.date, date), eq(tasks.userId, userId)));
+    .where(
+      or(
+        and(eq(tasks.date, date), eq(tasks.userId, userId)),
+        eq(tasks.isDaily, true),
+      ),
+    )
+    .orderBy(asc(tasks.startTime));
 
   if (tasksQuery.length === 0) {
     return [];

@@ -27,7 +27,7 @@ export const tasks = pgTable("tasks", {
   date: date("date").notNull(),
 
   tags: text("tags").array(),
-  color: varchar("color", { length: 50 }),
+  color: varchar("color", { length: 100 }),
 
   reminder: time("reminder"),
   reminderStatus: reminderStatusEnum("reminder_status")
@@ -38,6 +38,7 @@ export const tasks = pgTable("tasks", {
 
   isPriority: boolean("is_priority").default(false).notNull(),
   tagPriority: varchar("tag_priority", { length: 50 }),
+  isDaily: boolean("is_daily").default(false).notNull(),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")

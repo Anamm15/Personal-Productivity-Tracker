@@ -1,0 +1,1 @@
+ALTER TABLE "tasks" ALTER COLUMN "color" SET DATA TYPE varchar(100);

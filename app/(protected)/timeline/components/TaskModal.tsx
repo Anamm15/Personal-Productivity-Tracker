@@ -1,6 +1,12 @@
 "use client";
 
-import { Modal } from "@/components/Modal";
+import {
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/components/Modal";
 import { useState } from "react";
 import Calender from "@/components/Calender";
 import {
@@ -21,10 +27,11 @@ import FormCheckbox from "@/components/form/Checkbox";
 import { TaskCreateRequest } from "@/types/dto/task";
 
 type TaskModalProps = {
+  isOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
+export default function TaskModal({ setIsModalOpen, isOpen }: TaskModalProps) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -35,6 +42,7 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
   const [reminder, setReminder] = useState("");
   const [color, setColor] = useState("");
   const [isPriority, setIsPriority] = useState(false);
+  const [isDaily, setIsDaily] = useState(false);
   const [tagPriority, setTagPriority] = useState("");
   const { mutate: createTask } = useCreateTask();
 
@@ -70,6 +78,7 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
         color: colorAttrib,
         isPriority,
         tagPriority,
+        isDaily,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       }).filter(([_, v]) => v !== "" && v !== undefined && v !== null),
     );
@@ -82,129 +91,145 @@ export default function TaskModal({ setIsModalOpen }: TaskModalProps) {
 
   return (
     <div>
-      <Modal title="Create New Task" setIsModalOpen={setIsModalOpen}>
-        <div className="space-y-5">
-          <FormInput
-            label="Title"
-            required
-            placeholder="Task Title"
-            type="text"
-            icon={Type}
-            value={title}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setTitle(e.target.value)
-            }
-          />
+      <Modal open={isOpen} setIsOpen={setIsModalOpen}>
+        <ModalHeader>
+          <ModalTitle>Create New Task</ModalTitle>
+        </ModalHeader>
 
-          <FormTextarea
-            label="Description"
-            placeholder="Task Description"
-            type="text"
-            icon={AlignLeft}
-            rows={3}
-            value={description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setDescription(e.target.value)
-            }
-          />
-
-          <FormInputDate
-            label="Date"
-            required
-            formattedDate={formattedDate}
-            setIsCalendarOpen={setIsCalendarOpen}
-          />
-
-          <div className="grid grid-cols-2 gap-4">
+        <ModalBody>
+          <div className="space-y-5">
             <FormInput
-              label="Start"
-              placeholder="00:00"
+              label="Title"
               required
-              type="time"
-              icon={Clock}
-              value={startTime}
+              placeholder="Task Title"
+              type="text"
+              icon={Type}
+              value={title}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setStartTime(e.target.value)
+                setTitle(e.target.value)
               }
             />
 
-            <FormInput
-              label="End"
-              placeholder="00:00"
+            <FormTextarea
+              label="Description"
+              placeholder="Task Description"
+              type="text"
+              icon={AlignLeft}
+              rows={3}
+              value={description}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setDescription(e.target.value)
+              }
+            />
+
+            <FormInputDate
+              label="Date"
               required
-              type="time"
-              icon={Clock}
-              value={endTime}
+              formattedDate={formattedDate}
+              setIsCalendarOpen={setIsCalendarOpen}
+            />
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput
+                label="Start"
+                placeholder="00:00"
+                required
+                type="time"
+                icon={Clock}
+                value={startTime}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setStartTime(e.target.value)
+                }
+              />
+
+              <FormInput
+                label="End"
+                placeholder="00:00"
+                required
+                type="time"
+                icon={Clock}
+                value={endTime}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEndTime(e.target.value)
+                }
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput
+                label="Tags"
+                placeholder="Study, Dev, Work, etc"
+                type="text"
+                icon={Hash}
+                value={tags}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTags(e.target.value)
+                }
+              />
+
+              <FormInput
+                label="Reminder"
+                placeholder="00:00"
+                type="time"
+                icon={Bell}
+                value={reminder}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setReminder(e.target.value)
+                }
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput
+                label="Color"
+                placeholder="Color name in english"
+                type="text"
+                icon={Palette}
+                value={color}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setColor(e.target.value)
+                }
+              />
+
+              <FormInput
+                label="Tag Priority"
+                placeholder="Tag Priority"
+                type="text"
+                icon={Hash}
+                value={tagPriority}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setTagPriority(e.target.value)
+                }
+              />
+            </div>
+
+            <FormCheckbox
+              label="Set as Priority"
+              checked={isPriority}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEndTime(e.target.value)
+                setIsPriority(e.target.checked)
+              }
+            />
+
+            <FormCheckbox
+              label="Set as Daily Task"
+              checked={isDaily}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setIsDaily(e.target.checked)
               }
             />
           </div>
+        </ModalBody>
 
-          <div className="grid grid-cols-2 gap-4">
-            <FormInput
-              label="Tags"
-              placeholder="Study, Dev, Work, etc"
-              type="text"
-              icon={Hash}
-              value={tags}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setTags(e.target.value)
-              }
-            />
-
-            <FormInput
-              label="Reminder"
-              placeholder="00:00"
-              type="time"
-              icon={Bell}
-              value={reminder}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setReminder(e.target.value)
-              }
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <FormInput
-              label="Color"
-              placeholder="Color name in english"
-              type="text"
-              icon={Palette}
-              value={color}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setColor(e.target.value)
-              }
-            />
-
-            <FormInput
-              label="Tag Priority"
-              placeholder="Tag Priority"
-              type="text"
-              icon={Hash}
-              value={tagPriority}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setTagPriority(e.target.value)
-              }
-            />
-          </div>
-
-          <FormCheckbox
-            label="Set as Priority"
-            checked={isPriority}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setIsPriority(e.target.checked)
-            }
-          />
-
+        <ModalFooter>
           <button
             onClick={handleCreateTask}
-            className="w-full mt-4 py-2.5 bg-stone-900 text-white rounded-xl  shadow-lg hover:bg-stone-800 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
+            className="w-full py-2.5 bg-stone-900 text-white rounded-xl  shadow-lg hover:bg-stone-800 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
           >
             Start the Journey
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-        </div>
+        </ModalFooter>
       </Modal>
 
       {isCalendarOpen && (

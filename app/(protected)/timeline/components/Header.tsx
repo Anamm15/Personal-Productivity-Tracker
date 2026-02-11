@@ -16,7 +16,7 @@ export default function Header({
   setIsTaskModalOpen,
 }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-white/50 pt-4 pb-2 px-4 shadow-sm transition-all">
+    <header className="sticky top-19 xl:top-21 z-20 bg-white/80 backdrop-blur-xl border-b border-white/50 pt-4 pb-2 px-4 shadow-sm transition-all">
       <div className="max-w-4xl mx-auto">
         {/* Top Row: Navigation & Title */}
         <div className="flex justify-between items-center mb-4">

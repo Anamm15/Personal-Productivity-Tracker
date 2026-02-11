@@ -55,7 +55,7 @@ export default function DetailTaskModal({
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -74,7 +74,7 @@ export default function DetailTaskModal({
         onSuccess: () => {
           setTask({ ...task, status: "COMPLETED" });
         },
-      }
+      },
     );
   };
 
@@ -92,7 +92,7 @@ export default function DetailTaskModal({
         onSuccess: () => {
           setIsEditing(false);
         },
-      }
+      },
     );
   };
 
@@ -108,255 +108,270 @@ export default function DetailTaskModal({
   const StatusIcon = statusConfig.icon;
 
   return (
-    <div className="space-y-6">
-      {/* --- HEADER --- */}
-      <div className="flex justify-between items-start gap-4">
-        <div className="space-y-3 flex-1">
-          {/* Status Badge (Editable dropdown if editing) */}
-          {isEditing ? (
-            <FormSelect
-              label="status"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              options={[
-                { value: "COMPLETED", label: "Completed" },
-                { value: "IN_PROGRESS", label: "In Progress" },
-                { value: "CANCELED", label: "Canceled" },
-                { value: "PENDING", label: "Pending" },
-              ]}
-            />
-          ) : (
-            <div
-              className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${statusConfig.color}`}
-            >
-              <StatusIcon className="w-3.5 h-3.5" />
-              <span>{statusConfig.label}</span>
-            </div>
-          )}
-
-          {/* Title Input vs Text */}
-          {isEditing ? (
-            <FormInput
-              label="title"
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              placeholder="Task Title"
-            />
-          ) : (
-            <h2 className="text-2xl font-bold text-stone-900 leading-tight">
-              {task.title}
-            </h2>
-          )}
-        </div>
-      </div>
-
-      {/* --- TIME & DATE GRID --- */}
-      <div className="space-y-3">
-        {/* Date Field */}
-        <div className="bg-stone-50 p-3 rounded-xl border border-stone-100 flex items-center gap-3">
-          <div className="p-2 bg-white rounded-lg shadow-sm text-stone-600">
-            <Calendar className="w-5 h-5" />
-          </div>
-          <div className="w-full">
-            <p className="text-xs text-stone-500 font-medium uppercase tracking-wide">
-              Date
-            </p>
-            <p className="text-sm font-semibold text-stone-800">
-              {formatDate(task.date)}
-            </p>
-          </div>
-        </div>
-
-        {/* Time Field */}
-        <div className="bg-stone-50 p-3 rounded-xl border border-stone-100 flex items-center gap-3">
-          <div className="p-2 bg-white rounded-lg shadow-sm text-stone-600">
-            <Clock className="w-5 h-5" />
-          </div>
-          <div className="w-full">
-            <p className="text-xs text-stone-500 font-medium uppercase tracking-wide">
-              Time
-            </p>
+    <>
+      <div className="space-y-6">
+        {/* --- HEADER --- */}
+        <div className="flex justify-between items-start gap-4">
+          <div className="space-y-3 flex-1">
+            {/* Status Badge (Editable dropdown if editing) */}
             {isEditing ? (
-              <div className="flex items-center gap-2 mt-1">
-                <FormInput
-                  label=""
-                  type="time"
-                  name="startTime"
-                  value={formData.startTime || ""}
-                  onChange={handleChange}
-                  className="bg-transparent border-b border-stone-300 text-sm font-semibold text-stone-900 focus:border-stone-900 outline-none w-20"
-                />
-                <span>-</span>
-                <FormInput
-                  label=""
-                  type="time"
-                  name="endTime"
-                  value={formData.endTime || ""}
-                  onChange={handleChange}
-                  className="bg-transparent border-b border-stone-300 text-sm font-semibold text-stone-900 focus:border-stone-900 outline-none w-20"
-                />
-              </div>
+              <FormSelect
+                label="status"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                options={[
+                  { value: "COMPLETED", label: "Completed" },
+                  { value: "IN_PROGRESS", label: "In Progress" },
+                  { value: "CANCELED", label: "Canceled" },
+                  { value: "PENDING", label: "Pending" },
+                ]}
+              />
             ) : (
-              <p className="text-sm font-semibold text-stone-800">
-                {task.startTime} - {task.endTime}
-              </p>
+              <div
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${statusConfig.color}`}
+              >
+                <StatusIcon className="w-3.5 h-3.5" />
+                <span>{statusConfig.label}</span>
+              </div>
+            )}
+
+            {/* Title Input vs Text */}
+            {isEditing ? (
+              <FormInput
+                label="title"
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="Task Title"
+              />
+            ) : (
+              <h2 className="text-2xl font-bold text-stone-900 leading-tight">
+                {task.title}
+              </h2>
             )}
           </div>
         </div>
 
-        {/* Reminder Field */}
-        {(isEditing || task.reminder) && (
-          <div className="md:col-span-2 bg-amber-50 p-3 rounded-xl border border-amber-100 flex items-center gap-3">
-            <div className="p-2 bg-white rounded-lg shadow-sm text-amber-600">
-              <Bell className="w-5 h-5" />
+        {/* --- TIME & DATE GRID --- */}
+        <div className="space-y-3">
+          {/* Date Field */}
+          <div className="bg-stone-50 p-3 rounded-xl border border-stone-100 flex items-center gap-3">
+            <div className="p-2 bg-white rounded-lg shadow-sm text-stone-600">
+              <Calendar className="w-5 h-5" />
             </div>
             <div className="w-full">
-              <p className="text-xs text-amber-600 font-bold uppercase tracking-wide">
-                Pengingat
+              <p className="text-xs text-stone-500 font-medium uppercase tracking-wide">
+                Date
+              </p>
+              <p className="text-sm font-semibold text-stone-800">
+                {formatDate(task.date)}
+              </p>
+            </div>
+          </div>
+
+          {/* Time Field */}
+          <div className="bg-stone-50 p-3 rounded-xl border border-stone-100 flex items-center gap-3">
+            <div className="p-2 bg-white rounded-lg shadow-sm text-stone-600">
+              <Clock className="w-5 h-5" />
+            </div>
+            <div className="w-full">
+              <p className="text-xs text-stone-500 font-medium uppercase tracking-wide">
+                Time
               </p>
               {isEditing ? (
-                <input
-                  type="time"
-                  name="reminder"
-                  value={formData.reminder || ""}
-                  onChange={handleChange}
-                  className="bg-transparent border-b border-amber-300 text-sm font-medium text-stone-800 focus:border-amber-600 outline-none w-full mt-1"
-                />
+                <div className="flex items-center gap-2 mt-1">
+                  <FormInput
+                    label=""
+                    type="time"
+                    name="startTime"
+                    value={formData.startTime || ""}
+                    onChange={handleChange}
+                    className="bg-transparent border-b border-stone-300 text-sm font-semibold text-stone-900 focus:border-stone-900 outline-none w-20"
+                  />
+                  <span>-</span>
+                  <FormInput
+                    label=""
+                    type="time"
+                    name="endTime"
+                    value={formData.endTime || ""}
+                    onChange={handleChange}
+                    className="bg-transparent border-b border-stone-300 text-sm font-semibold text-stone-900 focus:border-stone-900 outline-none w-20"
+                  />
+                </div>
               ) : (
-                <p className="text-sm font-medium text-stone-800">
-                  Diatur untuk pukul {task.reminder}
+                <p className="text-sm font-semibold text-stone-800">
+                  {task.startTime} - {task.endTime}
                 </p>
               )}
             </div>
           </div>
-        )}
-      </div>
 
-      <hr className="border-stone-100" />
-
-      {/* --- DESCRIPTION --- */}
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-stone-900 font-semibold">
-            <AlignLeft className="w-4 h-4 text-stone-400" />
-            <h3>Description</h3>
-          </div>
-          <div className="pl-6 w-full">
-            {isEditing ? (
-              <FormTextarea
-                name="description"
-                placeholder="What's your task about?"
-                value={formData.description}
-                onChange={handleChange}
-              />
-            ) : task.description ? (
-              <p className="text-stone-600 text-sm leading-relaxed whitespace-pre-line">
-                {task.description}
-              </p>
-            ) : (
-              <p className="text-stone-400 text-sm italic">
-                No description yet
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* --- TAGS --- */}
-        <div className="space-y-2">
-          <div className="flex items-center gap-2 text-stone-900 font-semibold">
-            <Tag className="w-4 h-4 text-stone-400" />
-            <h3>Tags</h3>
-          </div>
-          <div className="pl-6">
-            {isEditing ? (
-              <input
-                type="text"
-                name="tags"
-                // Gabungkan array jadi string comma-separated untuk input
-                value={formData.tags?.join(", ") || ""}
-                onChange={handleTagsChange}
-                className="w-full p-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:ring-stone-900 focus:border-stone-900 outline-none"
-                placeholder="Contoh: Design, Priority, Work (pisahkan koma)"
-              />
-            ) : (
-              <div className="flex flex-wrap gap-2">
-                {task.tags && task.tags.length > 0 ? (
-                  task.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-stone-100 text-stone-600 text-xs font-medium rounded-full border border-stone-200"
-                    >
-                      #{tag}
-                    </span>
-                  ))
+          {/* Reminder Field */}
+          {(isEditing || task.reminder) && (
+            <div className="md:col-span-2 bg-amber-50 p-3 rounded-xl border border-amber-100 flex items-center gap-3">
+              <div className="p-2 bg-white rounded-lg shadow-sm text-amber-600">
+                <Bell className="w-5 h-5" />
+              </div>
+              <div className="w-full">
+                <p className="text-xs text-amber-600 font-bold uppercase tracking-wide">
+                  Pengingat
+                </p>
+                {isEditing ? (
+                  <input
+                    type="time"
+                    name="reminder"
+                    value={formData.reminder || ""}
+                    onChange={handleChange}
+                    className="bg-transparent border-b border-amber-300 text-sm font-medium text-stone-800 focus:border-amber-600 outline-none w-full mt-1"
+                  />
                 ) : (
-                  <span className="text-stone-400 text-xs italic">No Tags</span>
+                  <p className="text-sm font-medium text-stone-800">
+                    Diatur untuk pukul {task.reminder}
+                  </p>
                 )}
               </div>
+            </div>
+          )}
+        </div>
+
+        <hr className="border-stone-100" />
+
+        {/* --- DESCRIPTION --- */}
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-stone-900 font-semibold">
+              <AlignLeft className="w-4 h-4 text-stone-400" />
+              <h3>Description</h3>
+            </div>
+            <div className="pl-6 w-full">
+              {isEditing ? (
+                <FormTextarea
+                  name="description"
+                  placeholder="What's your task about?"
+                  value={formData.description}
+                  onChange={handleChange}
+                />
+              ) : task.description ? (
+                <p className="text-stone-600 text-sm leading-relaxed whitespace-pre-line">
+                  {task.description}
+                </p>
+              ) : (
+                <p className="text-stone-400 text-sm italic">
+                  No description yet
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* --- TAGS --- */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-stone-900 font-semibold">
+              <Tag className="w-4 h-4 text-stone-400" />
+              <h3>Tags</h3>
+            </div>
+            <div className="pl-6">
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="tags"
+                  // Gabungkan array jadi string comma-separated untuk input
+                  value={formData.tags?.join(", ") || ""}
+                  onChange={handleTagsChange}
+                  className="w-full p-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:ring-stone-900 focus:border-stone-900 outline-none"
+                  placeholder="Contoh: Design, Priority, Work (pisahkan koma)"
+                />
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {task.tags && task.tags.length > 0 ? (
+                    task.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 bg-stone-100 text-stone-600 text-xs font-medium rounded-full border border-stone-200"
+                      >
+                        #{tag}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-stone-400 text-xs italic">
+                      No Tags
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* --- ACTION FOOTER --- */}
+        <div className="pt-6 mt-6 border-t border-stone-100 flex justify-between items-center">
+          {isEditing ? (
+            <button
+              onClick={() => {
+                setIsEditing(false);
+                if (task) setFormData(task);
+              }}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-stone-500 hover:bg-stone-100 transition-colors"
+            >
+              <X className="w-4 h-4" />
+              <span>Cancel</span>
+            </button>
+          ) : (
+            <button
+              onClick={handleDelete}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 hover:text-red-600 transition-colors group"
+            >
+              <Trash2 className="w-4 h-4 transition-transform group-hover:scale-110" />
+              <span>Delete</span>
+            </button>
+          )}
+
+          {/* KANAN */}
+          <div className="flex gap-3">
+            {isEditing ? (
+              <button
+                onClick={handleSave}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-stone-900 text-white hover:bg-stone-800 shadow-lg hover:shadow-stone-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+              >
+                <Save className="w-4 h-4" />
+                <span>Save</span>
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors border border-stone-200"
+                >
+                  <Edit className="w-4 h-4" />
+                  <span>Update</span>
+                </button>
+
+                {task.status !== "COMPLETED" && (
+                  <button
+                    onClick={handleCompletingTask}
+                    className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-stone-900 text-white hover:bg-stone-800 shadow-lg hover:shadow-stone-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all"
+                  >
+                    <span>Complete</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>
       </div>
 
-      {/* --- ACTION FOOTER --- */}
-      <div className="pt-6 mt-6 border-t border-stone-100 flex justify-between items-center">
-        {isEditing ? (
-          <button
-            onClick={() => {
-              setIsEditing(false);
-              if (task) setFormData(task);
-            }}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-stone-500 hover:bg-stone-100 transition-colors"
-          >
-            <X className="w-4 h-4" />
-            <span>Cancel</span>
-          </button>
-        ) : (
-          <button
-            onClick={handleDelete}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 hover:text-red-600 transition-colors group"
-          >
-            <Trash2 className="w-4 h-4 transition-transform group-hover:scale-110" />
-            <span>Delete</span>
-          </button>
-        )}
-
-        {/* KANAN */}
-        <div className="flex gap-3">
-          {isEditing ? (
-            <button
-              onClick={handleSave}
-              className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold bg-stone-900 text-white hover:bg-stone-800 shadow-lg hover:shadow-stone-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all"
-            >
-              <Save className="w-4 h-4" />
-              <span>Save</span>
-            </button>
-          ) : (
-            <>
-              <button
-                onClick={() => setIsEditing(true)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-stone-600 bg-stone-100 hover:bg-stone-200 transition-colors border border-stone-200"
-              >
-                <Edit className="w-4 h-4" />
-                <span>Update</span>
-              </button>
-
-              {task.status !== "COMPLETED" && (
-                <button
-                  onClick={handleCompletingTask}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-stone-900 text-white hover:bg-stone-800 shadow-lg hover:shadow-stone-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all"
-                >
-                  <span>Complete</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+      {/* --- MOBILE ACTION FOOTER --- */}
+      {task.status !== "COMPLETED" && !isEditing && (
+        <button
+          onClick={handleCompletingTask}
+          className="flex md:hidden justify-center items-center gap-2 w-full py-2.5 rounded-xl bg-stone-900 text-white hover:bg-stone-800 shadow-lg hover:shadow-stone-900/20 hover:-translate-y-0.5 active:translate-y-0 transition-all mt-4 -mb-2"
+        >
+          <span>Complete</span>
+          <ArrowRight className="w-4 h-4" />
+        </button>
+      )}
+    </>
   );
 }

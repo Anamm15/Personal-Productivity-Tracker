@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Modal } from "@/components/Modal";
+import {
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from "@/components/Modal";
 import Calender from "@/components/Calender";
 import {
   Gift,
@@ -21,6 +27,7 @@ import { CreateGoalRequest, GoalResponse } from "@/types/dto/goal";
 import { dateStringToDate } from "@/utils/datetime";
 
 type GoalModalProps = {
+  isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdate?: boolean;
   goal: GoalResponse | null;
@@ -40,6 +47,7 @@ function getInitialFormState(goal: GoalResponse | null) {
 }
 
 export default function GoalModal({
+  isModalOpen,
   setIsModalOpen,
   isUpdate = false,
   goal,
@@ -116,134 +124,141 @@ export default function GoalModal({
 
   return (
     <div>
-      <Modal title="Start New Journey" setIsModalOpen={setIsModalOpen}>
-        <div className="space-y-5">
-          {/* Title */}
-          <FormInput
-            label="Title"
-            type="text"
-            required
-            icon={Type}
-            placeholder="Example: Go to Gym"
-            value={formData.title}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleChange("title", e.target.value)
-            }
-          />
+      <Modal open={isModalOpen} setIsOpen={setIsModalOpen}>
+        <ModalHeader>
+          <ModalTitle>Start New Journey</ModalTitle>
+        </ModalHeader>
 
-          {/* Description */}
-          <FormTextarea
-            label="Description"
-            icon={AlignLeft}
-            placeholder="What you want to achieve?"
-            rows={2}
-            value={formData.description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              handleChange("description", e.target.value)
-            }
-          />
-
-          {/* Motivation*/}
-          <FormTextarea
-            label="Motivation (The Why)"
-            placeholder="Why you want to achieve this?"
-            type="text"
-            rows={2}
-            value={formData.motivation}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleChange("motivation", e.target.value)
-            }
-          />
-
-          {/* Reward */}
-          <FormInput
-            label="Reward"
-            icon={Gift}
-            placeholder="Self reward..."
-            value={formData.reward}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleChange("reward", e.target.value)
-            }
-          />
-
-          {/* Category & Theme Grid */}
-          <div className="grid grid-cols-2 gap-4">
+        <ModalBody>
+          <div className="space-y-5">
+            {/* Title */}
             <FormInput
-              label="Category"
+              label="Title"
               type="text"
               required
-              icon={LayoutGrid}
-              placeholder="Finance, Health..."
-              value={formData.category}
+              icon={Type}
+              placeholder="Example: Go to Gym"
+              value={formData.title}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange("category", e.target.value)
+                handleChange("title", e.target.value)
               }
             />
 
-            <FormSelect
-              label="Theme Color"
-              icon={Palette}
-              value={formData.theme}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChange("theme", e.target.value)
+            {/* Description */}
+            <FormTextarea
+              label="Description"
+              icon={AlignLeft}
+              placeholder="What you want to achieve?"
+              rows={2}
+              value={formData.description}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                handleChange("description", e.target.value)
               }
-              options={[
-                { value: "indigo", label: "Indigo (Fokus)" },
-                { value: "emerald", label: "Emerald (Health)" },
-                { value: "rose", label: "Rose (Passion)" },
-                { value: "amber", label: "Amber (Wealth)" },
-              ]}
             />
-          </div>
 
-          {/* Date Picker Section - Menggunakan Custom Calendar Logic */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label required>Start</Label>
-              <div
-                onClick={() => openCalendar("start")}
-                className="relative group cursor-pointer"
-              >
-                <div className="absolute left-3 top-3.5 text-stone-400 group-hover:text-indigo-600 transition-colors">
-                  <CalendarIcon className="w-4 h-4" />
-                </div>
-                <input
-                  type="text"
-                  readOnly
-                  value={formatDateDisplay(formData.start)}
-                  className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none hover:bg-white hover:border-indigo-400 cursor-pointer transition-all font-semibold text-stone-700 text-sm pointer-events-none"
-                />
-              </div>
+            {/* Motivation*/}
+            <FormTextarea
+              label="Motivation (The Why)"
+              placeholder="Why you want to achieve this?"
+              type="text"
+              rows={2}
+              value={formData.motivation}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange("motivation", e.target.value)
+              }
+            />
+
+            {/* Reward */}
+            <FormInput
+              label="Reward"
+              icon={Gift}
+              placeholder="Self reward..."
+              value={formData.reward}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange("reward", e.target.value)
+              }
+            />
+
+            {/* Category & Theme Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput
+                label="Category"
+                type="text"
+                required
+                icon={LayoutGrid}
+                placeholder="Finance, Health..."
+                value={formData.category}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange("category", e.target.value)
+                }
+              />
+
+              <FormSelect
+                label="Theme Color"
+                icon={Palette}
+                value={formData.theme}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleChange("theme", e.target.value)
+                }
+                options={[
+                  { value: "indigo", label: "Indigo (Fokus)" },
+                  { value: "emerald", label: "Emerald (Health)" },
+                  { value: "rose", label: "Rose (Passion)" },
+                  { value: "amber", label: "Amber (Wealth)" },
+                ]}
+              />
             </div>
 
-            <div>
-              <Label required>Deadline</Label>
-              <div
-                onClick={() => openCalendar("deadline")}
-                className="relative group cursor-pointer"
-              >
-                <div className="absolute left-3 top-3.5 text-stone-400 group-hover:text-rose-500 transition-colors">
-                  <CalendarIcon className="w-4 h-4" />
+            {/* Date Picker Section - Menggunakan Custom Calendar Logic */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label required>Start</Label>
+                <div
+                  onClick={() => openCalendar("start")}
+                  className="relative group cursor-pointer"
+                >
+                  <div className="absolute left-3 top-3.5 text-stone-400 group-hover:text-indigo-600 transition-colors">
+                    <CalendarIcon className="w-4 h-4" />
+                  </div>
+                  <input
+                    type="text"
+                    readOnly
+                    value={formatDateDisplay(formData.start)}
+                    className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none hover:bg-white hover:border-indigo-400 cursor-pointer transition-all font-semibold text-stone-700 text-sm pointer-events-none"
+                  />
                 </div>
-                <input
-                  type="text"
-                  readOnly
-                  value={formatDateDisplay(formData.deadline)}
-                  className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none hover:bg-white hover:border-rose-400 cursor-pointer transition-all font-semibold text-stone-700 text-sm pointer-events-none"
-                />
+              </div>
+
+              <div>
+                <Label required>Deadline</Label>
+                <div
+                  onClick={() => openCalendar("deadline")}
+                  className="relative group cursor-pointer"
+                >
+                  <div className="absolute left-3 top-3.5 text-stone-400 group-hover:text-rose-500 transition-colors">
+                    <CalendarIcon className="w-4 h-4" />
+                  </div>
+                  <input
+                    type="text"
+                    readOnly
+                    value={formatDateDisplay(formData.deadline)}
+                    className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl outline-none hover:bg-white hover:border-rose-400 cursor-pointer transition-all font-semibold text-stone-700 text-sm pointer-events-none"
+                  />
+                </div>
               </div>
             </div>
           </div>
+        </ModalBody>
 
-          {/* Submit Button */}
+        <ModalFooter>
           <button
             onClick={handleCreateGoal}
-            className="w-full mt-4 py-2.5 bg-stone-900 text-white rounded-xl shadow-lg hover:bg-stone-800 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group font-medium"
+            className="w-full py-2.5 bg-stone-900 text-white rounded-xl shadow-lg hover:bg-stone-800 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group font-medium"
           >
             Start The Journey
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-        </div>
+        </ModalFooter>
       </Modal>
 
       {/* Logic Kalender Terintegrasi */}

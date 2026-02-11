@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { AlertCircle, Loader2, Plus } from "lucide-react";
 import MainFocusSection from "./components/MainFocus";
 import TimelineSection from "./components/Timeline";
-import { Modal } from "@/components/Modal";
+import { Modal, ModalBody, ModalHeader, ModalTitle } from "@/components/Modal";
 import { useQuickAddTask, useTasks } from "./hooks/useTasks";
 import DetailTaskModal from "../timeline/components/DetailTaskModal";
 import { TaskResponse } from "@/types/dto/task";
@@ -82,23 +82,29 @@ export default function DashboardEnhanced() {
       </div>
 
       {/* --- MODAL (Detail Task) --- */}
-      {isDetailTaskModalOpen && (
-        <Modal title="Task Detail" setIsModalOpen={setIsDetailTaskModalOpen}>
+      <Modal open={isDetailTaskModalOpen} setIsOpen={setIsDetailTaskModalOpen}>
+        <ModalHeader>
+          <ModalTitle>Detail Task</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
           <DetailTaskModal
             task={selectedTask}
             setTask={setSelectedTask}
             setIsModalOpen={setIsDetailTaskModalOpen}
           />
-        </Modal>
-      )}
+        </ModalBody>
+      </Modal>
 
       {/* --- MODAL (Quick Add Task) --- */}
-      {isQuickAddModalOpen && (
-        <Modal setIsModalOpen={setIsQuickAddModalOpen} title="Quick Add Task">
+      <Modal open={isQuickAddModalOpen} setIsOpen={setIsQuickAddModalOpen}>
+        <ModalHeader>
+          <ModalTitle>Quick Add Task</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
           <input
             type="text"
             placeholder="Contoh: Meeting jam 10 @08:30-10:00"
-            className="w-full p-4 bg-stone-50/50 border border-stone-200 rounded-2xl outline-none focus:border-teal-500 transition-colors"
+            className="w-full p-4 bg-stone-100 border border-stone-200 rounded-2xl outline-none focus:border-teal-500 transition-colors"
             value={command}
             onChange={(e) => setCommand(e.target.value)}
           />
@@ -108,8 +114,8 @@ export default function DashboardEnhanced() {
           >
             Submit
           </button>
-        </Modal>
-      )}
+        </ModalBody>
+      </Modal>
     </div>
   );
 }

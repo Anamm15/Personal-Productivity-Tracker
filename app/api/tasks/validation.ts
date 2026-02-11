@@ -19,7 +19,7 @@ export const createTaskSchema = z
       .string()
       .regex(
         /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/,
-        "Invalid date format (YYYY-MM-DD)"
+        "Invalid date format (YYYY-MM-DD)",
       ),
 
     startTime: z
@@ -41,6 +41,7 @@ export const createTaskSchema = z
 
     isPriority: z.boolean().optional(),
     tagPriority: z.string().optional(),
+    isDaily: z.boolean().optional(),
   })
   .refine(
     (data) => {
@@ -52,7 +53,7 @@ export const createTaskSchema = z
     {
       message: "endTime must be after startTime",
       path: ["endTime"],
-    }
+    },
   );
 
 // Kita bisa menyimpulkan type data input murni dari Zod ini

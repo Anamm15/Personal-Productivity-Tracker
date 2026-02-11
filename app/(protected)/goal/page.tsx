@@ -15,7 +15,7 @@ export default function GoalsPage() {
   const [selectedGoal, setSelectedGoal] = useState<GoalResponse | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const { data: goalsData, isLoading } = useGoalsQuery(
-    localISODate(selectedDate).isoDate
+    localISODate(selectedDate).isoDate,
   );
   const [goals, setGoals] = useState(goalsData);
 
@@ -55,12 +55,17 @@ export default function GoalsPage() {
 
       {/* --- NEW GOAL MODAL (Simple Structure) --- */}
       {isCreateModalOpen && (
-        <GoalModal setIsModalOpen={setIsCreateModalOpen} goal={null} />
+        <GoalModal
+          isModalOpen={isCreateModalOpen}
+          setIsModalOpen={setIsCreateModalOpen}
+          goal={null}
+        />
       )}
 
       {/* --- UPDATE GOAL MODAL (Simple Structure) --- */}
       {isUpdateModalOpen && selectedGoal && (
         <GoalModal
+          isModalOpen={isUpdateModalOpen}
           setIsModalOpen={setIsUpdateModalOpen}
           isUpdate
           goal={selectedGoal}
