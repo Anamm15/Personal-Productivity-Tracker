@@ -269,6 +269,7 @@ export default function GoalModal({
             handleChange(activeDateField, newDate);
             setIsCalendarOpen(false);
           }}
+          isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}
         />
       )}

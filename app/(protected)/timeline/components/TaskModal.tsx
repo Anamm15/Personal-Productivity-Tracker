@@ -239,6 +239,7 @@ export default function TaskModal({ setIsModalOpen, isOpen }: TaskModalProps) {
             setDate(newDate);
             setIsCalendarOpen(false);
           }}
+          isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}
         />
       )}

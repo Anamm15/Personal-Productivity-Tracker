@@ -42,6 +42,7 @@ export default function DailyTimelineWithDate() {
         <Calender
           currentDate={currentDate}
           setCurrentDate={setCurrentDate}
+          isCalendarOpen={isCalendarOpen}
           setIsCalendarOpen={setIsCalendarOpen}
         />
       )}
