@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getTokenFromHeader, verifyToken } from "@/utils/jwt";
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
   if (!authHeader) {
     return NextResponse.json(
@@ -49,5 +49,11 @@ export const config = {
     "/api/milestones",
     "/api/milestones/:id*",
     "/api/subscribe",
+    "/api/projects",
+    "/api/projects/:id*",
+    "/api/sprints",
+    "/api/sprints/:id*",
+    "/api/project-tasks",
+    "/api/project-tasks/:id*",
   ],
 };

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Menu, X, Home, Clock, Target, BookUser } from "lucide-react";
+import { Bell, Menu, X, Home, Clock, Target, BookUser, FolderKanban } from "lucide-react";
 import { useUser } from "@/hooks/useUser";
 
 export default function Navbar() {
@@ -28,6 +28,7 @@ export default function Navbar() {
       icon: <Clock className="w-4 h-4" />,
     },
     { name: "Goals", href: "/goal", icon: <Target className="w-4 h-4" /> },
+    { name: "Projects", href: "/project", icon: <FolderKanban className="w-4 h-4" /> },
   ];
 
   return (
@@ -66,11 +67,10 @@ export default function Navbar() {
                 <span
                   className={`
                   text-md font-bold tracking-wide transition-colors duration-300
-                  ${
-                    isActive
+                  ${isActive
                       ? "text-teal-700"
                       : "text-stone-500 hover:text-teal-600"
-                  }
+                    }
                 `}
                 >
                   {link.name}
@@ -79,11 +79,10 @@ export default function Navbar() {
                 <span
                   className={`
                   absolute bottom-0 left-0 h-[2.5px] rounded-full bg-linear-to-r from-teal-400 to-violet-500 transition-all duration-300 ease-out
-                  ${
-                    isActive
+                  ${isActive
                       ? "w-full shadow-[0_0_8px_rgba(45,212,191,0.5)]"
                       : "w-0 group-hover:w-full opacity-0 group-hover:opacity-100"
-                  }
+                    }
                 `}
                 ></span>
               </Link>
@@ -138,18 +137,16 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`
                   flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all
-                  ${
-                    isActive
-                      ? "bg-teal-50 text-teal-700 border border-teal-100"
-                      : "text-stone-500 hover:bg-stone-50 hover:text-stone-800"
+                  ${isActive
+                    ? "bg-teal-50 text-teal-700 border border-teal-100"
+                    : "text-stone-500 hover:bg-stone-50 hover:text-stone-800"
                   }
                 `}
               >
                 {/* Icon wrapper */}
                 <span
-                  className={`p-1.5 rounded-lg ${
-                    isActive ? "bg-white" : "bg-stone-100"
-                  }`}
+                  className={`p-1.5 rounded-lg ${isActive ? "bg-white" : "bg-stone-100"
+                    }`}
                 >
                   {link.icon}
                 </span>
